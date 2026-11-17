@@ -1,12 +1,23 @@
+
 import os
 from pathlib import Path
+from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+# Load environment variables from .env file
+load_dotenv(BASE_DIR / ".env")
 
 # Security
 SECRET_KEY = os.environ["DJANGO_SECRET_KEY"]
 DEBUG = True
 ALLOWED_HOSTS = []
+LOGIN_URL = '/admin/login/'
+LOGIN_REDIRECT_URL = '/admin-dashboard/'
+LOGOUT_REDIRECT_URL = '/admin/login/'
+
+
+
 
 # Applications
 INSTALLED_APPS = [
@@ -17,6 +28,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "claims.apps.ClaimsConfig",
+    "adminpanel.apps.AdminpanelConfig",
 ]
 
 # Middleware
