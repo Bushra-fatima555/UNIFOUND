@@ -1,0 +1,212 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join UniFind | Student Registration</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+
+<div class="page-wrapper">
+
+    <!-- LEFT BRANDING SECTION -->
+    <section class="welcome-section">
+
+        <a href="#" class="logo">
+            <span class="logo-icon">U</span>
+            <span>UniFind<span class="logo-dot">.</span></span>
+        </a>
+
+        <div class="welcome-content">
+            <span class="eyebrow">YOUR CAMPUS, YOUR COMMUNITY</span>
+
+            <h1>
+                University life,<br>
+                made a little <span>easier.</span>
+            </h1>
+
+            <p>
+                One place to connect with your campus,
+                discover opportunities and stay connected
+                with your university community.
+            </p>
+
+            <div class="campus-illustration">
+                <div class="illustration-circle circle-one"></div>
+                <div class="illustration-circle circle-two"></div>
+
+                
+<div class="campus-card">
+
+    <div class="campus-building">
+
+        <div class="building-roof"></div>
+
+        <div class="building-body">
+
+            <div class="building-columns">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+            <div class="building-door"></div>
+
+        </div>
+
+    </div>
+
+</div>
+
+            </div>
+        </div>
+
+        <div class="welcome-footer">
+            <span>Made for students, by students.</span>
+            <span>© 2026 UniFind</span>
+        </div>
+
+    </section>
+
+
+    <!-- RIGHT SIGNUP SECTION -->
+    <main class="signup-section">
+
+        <div class="signup-container">
+
+            <div class="form-heading">
+                <span class="form-label">STUDENT REGISTRATION</span>
+
+                <h2>Create your account</h2>
+
+                <p>
+                    Tell us a little about yourself to get started.
+                </p>
+            </div>
+
+            <form class="signup-form">
+
+                <div class="form-group">
+                    <label for="full_name">Full Name</label>
+                    <input
+                        type="text"
+                        id="full_name"
+                        name="full_name"
+                        placeholder="Enter your full name"
+                        autocomplete="name"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="email">University Email</label>
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="example@university.edu"
+                        autocomplete="email"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="roll_number">Roll Number</label>
+                    <input
+                        type="text"
+                        id="roll_number"
+                        name="roll_number"
+                        placeholder="Enter your university roll number"
+                        required
+                    >
+                </div>
+
+                <div class="form-row">
+
+                    <div class="form-group">
+                        <label for="department">Department</label>
+                        <select id="department" name="department" required>
+                            <option value="" disabled selected>
+                                Select department
+                            </option>
+                            <option value="Computer Science">Computer Science</option>
+                            <option value="Software Engineering">Software Engineering</option>
+                            <option value="Information Technology">Information Technology</option>
+                            <option value="Electrical Engineering">Electrical Engineering</option>
+                            <option value="Business Administration">Business Administration</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="semester">Semester</label>
+                        <select id="semester" name="semester" required>
+                            <option value="" disabled selected>
+                                Select semester
+                            </option>
+                            <option value="1">1st Semester</option>
+                            <option value="2">2nd Semester</option>
+                            <option value="3">3rd Semester</option>
+                            <option value="4">4th Semester</option>
+                            <option value="5">5th Semester</option>
+                            <option value="6">6th Semester</option>
+                            <option value="7">7th Semester</option>
+                            <option value="8">8th Semester</option>
+                        </select>
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Create a password"
+                        autocomplete="new-password"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="confirm_password">Confirm Password</label>
+                    <input
+                        type="password"
+                        id="confirm_password"
+                        name="confirm_password"
+                        placeholder="Enter your password again"
+                        autocomplete="new-password"
+                        required
+                    >
+                </div>
+
+                <button type="button" class="signup-button">
+                    Create Student Account
+                    <span>→</span>
+                </button>
+
+            </form>
+
+           <p class="login-text">
+    Already have an account?
+    <a href="{% url 'login' %}">Log in</a>
+</p>
+
+            <p class="privacy-note">
+                By creating an account, you agree to use UniFind
+                responsibly as a member of your university community.
+            </p>
+
+        </div>
+
+    </main>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,1365 @@
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600;700&display=swap');
+
+/* =========================================
+   1. GLOBAL STYLES
+========================================= */
+
+:root {
+    --cream: #F8F7F1;
+    --white: #FFFFFF;
+    --sage: #A8B9A0;
+    --sage-light: #EAF0E6;
+    --deep-sage: #526B57;
+    --dark-green: #344B3A;
+    --text: #343C35;
+    --muted: #818980;
+    --border: #E7E9E1;
+    --shadow: 0 15px 40px rgba(52, 75, 58, 0.08);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    line-height: 1.6;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+button,
+input,
+select,
+textarea {
+    font-family: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+/* =========================================
+   2. SHARED LOGO
+========================================= */
+
+.logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 25px;
+    font-weight: 800;
+    color: var(--dark-green);
+    letter-spacing: -1px;
+}
+
+.logo-icon {
+    width: 37px;
+    height: 37px;
+    background: var(--deep-sage);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 11px;
+    font-size: 19px;
+    font-weight: 800;
+}
+
+.logo-dot {
+    color: var(--sage);
+}
+
+/* =========================================
+   3. LANDING PAGE NAVIGATION
+========================================= */
+
+.landing-page {
+    overflow-x: hidden;
+}
+
+.landing-nav {
+    width: 100%;
+    padding: 22px 8%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--cream);
+}
+
+.landing-nav-links {
+    display: flex;
+    align-items: center;
+    gap: 35px;
+}
+
+.landing-nav-links a {
+    color: var(--muted);
+    font-size: 14px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.landing-nav-links a:hover {
+    color: var(--deep-sage);
+}
+
+.landing-nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.nav-login {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--deep-sage);
+}
+
+.nav-signup {
+    background: var(--deep-sage);
+    color: white;
+    padding: 12px 23px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    transition: 0.3s;
+}
+
+.nav-signup:hover {
+    background: var(--dark-green);
+    transform: translateY(-2px);
+}
+
+/* =========================================
+   4. LANDING HERO SECTION
+========================================= */
+
+.landing-hero {
+    padding: 85px 8% 100px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 60px;
+    min-height: 610px;
+}
+
+.hero-left {
+    max-width: 560px;
+}
+
+.hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 9px 15px;
+    background: var(--sage-light);
+    color: var(--deep-sage);
+    border-radius: 30px;
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 25px;
+}
+
+.hero-tag-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--deep-sage);
+    border-radius: 50%;
+}
+
+.hero-left h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(42px, 5vw, 65px);
+    line-height: 1.13;
+    color: var(--dark-green);
+    font-weight: 600;
+    letter-spacing: -1.5px;
+}
+
+.hero-left h1 span {
+    color: var(--deep-sage);
+}
+
+.hero-description {
+    max-width: 480px;
+    color: var(--muted);
+    font-size: 16px;
+    line-height: 1.9;
+    margin-top: 25px;
+}
+
+.hero-buttons {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    margin-top: 35px;
+}
+
+.hero-primary-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--deep-sage);
+    color: white;
+    padding: 15px 27px;
+    border-radius: 9px;
+    font-size: 14px;
+    font-weight: 700;
+    transition: 0.3s;
+}
+
+.hero-primary-btn:hover {
+    background: var(--dark-green);
+    transform: translateY(-3px);
+}
+
+.hero-secondary-btn {
+    color: var(--deep-sage);
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.hero-secondary-btn:hover {
+    color: var(--dark-green);
+}
+
+.hero-trust {
+    margin-top: 35px;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+/* =========================================
+   5. HERO ILLUSTRATION
+========================================= */
+
+.hero-right {
+    position: relative;
+    min-height: 430px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-decoration {
+    position: absolute;
+    width: 360px;
+    height: 360px;
+    background: #E8EDE3;
+    border-radius: 50%;
+    z-index: 0;
+}
+
+.hero-visual-card {
+    width: 90%;
+    max-width: 440px;
+    background: white;
+    border-radius: 22px;
+    padding: 25px;
+    box-shadow: var(--shadow);
+    position: relative;
+    z-index: 1;
+}
+
+.visual-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--deep-sage);
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.visual-campus {
+    height: 230px;
+    background: #EDF1E8;
+    border-radius: 15px;
+    position: relative;
+    overflow: hidden;
+}
+
+.visual-sun {
+    width: 48px;
+    height: 48px;
+    background: #D9C99C;
+    border-radius: 50%;
+    position: absolute;
+    top: 28px;
+    right: 45px;
+}
+
+.visual-building {
+    position: absolute;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 190px;
+}
+
+.visual-roof {
+    width: 0;
+    height: 0;
+    border-left: 105px solid transparent;
+    border-right: 105px solid transparent;
+    border-bottom: 65px solid #82977D;
+    margin-left: -10px;
+}
+
+.visual-building-body {
+    height: 105px;
+    background: #D5DDCD;
+    border: 3px solid #82977D;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+.visual-windows {
+    width: 24px;
+    height: 33px;
+    background: #879C82;
+    border: 3px solid white;
+}
+
+.visual-door {
+    width: 30px;
+    height: 55px;
+    background: #82977D;
+    align-self: flex-end;
+    border: 3px solid white;
+    border-bottom: none;
+}
+
+.visual-ground {
+    height: 22px;
+    background: #A8B99E;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+.visual-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    color: var(--text);
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.visual-arrow {
+    color: var(--deep-sage);
+    font-size: 20px;
+}
+
+.floating-note {
+    position: absolute;
+    right: -10px;
+    bottom: 35px;
+    background: white;
+    padding: 15px 20px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    z-index: 2;
+    color: var(--deep-sage);
+    font-size: 12px;
+    font-weight: 700;
+}
+
+/* =========================================
+   6. LANDING INTRO
+========================================= */
+
+.landing-intro {
+    padding: 55px 8%;
+    text-align: center;
+    background: white;
+}
+
+.intro-line {
+    width: 45px;
+    height: 3px;
+    background: var(--sage);
+    margin: 0 auto 20px;
+    border-radius: 5px;
+}
+
+.landing-intro p {
+    color: var(--muted);
+    font-size: 15px;
+}
+
+/* =========================================
+   7. FEATURES SECTION
+========================================= */
+
+.landing-features {
+    padding: 95px 8%;
+    background: var(--cream);
+}
+
+.features-heading {
+    text-align: center;
+    max-width: 650px;
+    margin: 0 auto 55px;
+}
+
+.section-eyebrow {
+    color: var(--deep-sage);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.features-heading h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 43px;
+    color: var(--dark-green);
+    line-height: 1.25;
+    margin-top: 15px;
+}
+
+.features-heading p {
+    color: var(--muted);
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+}
+
+.feature-card {
+    background: white;
+    padding: 30px;
+    border-radius: 16px;
+    min-height: 260px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--border);
+    transition: 0.3s;
+}
+
+.feature-card:hover {
+    transform: translateY(-7px);
+    box-shadow: var(--shadow);
+}
+
+.feature-card-highlight {
+    background: var(--deep-sage);
+    color: white;
+}
+
+.feature-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 13px;
+    background: var(--sage-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--deep-sage);
+    font-size: 21px;
+    margin-bottom: 25px;
+}
+
+.feature-card-highlight .feature-icon {
+    background: rgba(255,255,255,0.17);
+    color: white;
+}
+
+.feature-number {
+    font-size: 11px;
+    color: var(--sage);
+    font-weight: 800;
+    margin-bottom: 10px;
+}
+
+.feature-card h3 {
+    font-size: 19px;
+    color: var(--dark-green);
+    margin-bottom: 12px;
+}
+
+.feature-card-highlight h3 {
+    color: white;
+}
+
+.feature-card p {
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+.feature-card-highlight p {
+    color: #E5EBE2;
+}
+
+.feature-bottom {
+    margin-top: auto;
+    padding-top: 20px;
+    color: var(--deep-sage);
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.feature-card-highlight .feature-bottom {
+    color: white;
+}
+
+/* =========================================
+   8. LANDING CTA
+========================================= */
+
+.landing-cta {
+    margin: 0 8% 85px;
+    padding: 75px 40px;
+    background: #E9EEE5;
+    border-radius: 22px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.landing-cta h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 42px;
+    color: var(--dark-green);
+    margin-bottom: 15px;
+}
+
+.landing-cta p {
+    color: var(--muted);
+    font-size: 14px;
+    margin-bottom: 28px;
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 15px 28px;
+    background: var(--deep-sage);
+    color: white;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    transition: 0.3s;
+}
+
+.cta-button:hover {
+    background: var(--dark-green);
+    transform: translateY(-3px);
+}
+
+.cta-decoration {
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    border: 1px solid rgba(82,107,87,0.15);
+    border-radius: 50%;
+    top: -90px;
+    right: -50px;
+}
+
+/* =========================================
+   9. LANDING FOOTER
+========================================= */
+
+.landing-footer {
+    background: white;
+    padding: 35px 8%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--border);
+}
+
+.landing-footer p {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+/* =========================================
+   10. SIGNUP AND LOGIN SHARED LAYOUT
+========================================= */
+
+.page-wrapper {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    background: white;
+}
+
+/* Left welcome section */
+
+.welcome-section {
+    background: var(--cream);
+    padding: 45px 9%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+
+.welcome-content {
+    margin: 70px 0;
+    position: relative;
+    z-index: 1;
+}
+
+.eyebrow {
+    display: inline-block;
+    color: var(--deep-sage);
+    background: var(--sage-light);
+    padding: 8px 14px;
+    border-radius: 30px;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+.welcome-content h1 {
+    font-family: 'Playfair Display', serif;
+    color: var(--dark-green);
+    font-size: 48px;
+    line-height: 1.2;
+    font-weight: 600;
+}
+
+.welcome-content h1 span {
+    color: var(--deep-sage);
+}
+
+.welcome-content > p {
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.9;
+    margin-top: 20px;
+    max-width: 380px;
+}
+
+/* =========================================
+   11. CAMPUS ILLUSTRATION
+========================================= */
+
+.campus-illustration {
+    position: relative;
+    min-height: 230px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.illustration-circle {
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    background: #E7EDE3;
+    position: absolute;
+}
+
+.campus-card {
+    width: 240px;
+    height: 155px;
+    background: white;
+    border-radius: 14px;
+    box-shadow: var(--shadow);
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 18px;
+}
+
+.campus-building {
+    width: 125px;
+    height: 85px;
+    background: #D5DDCD;
+    border: 3px solid #879C82;
+    position: relative;
+}
+
+.campus-building::before {
+    content: "";
+    position: absolute;
+    top: -42px;
+    left: -12px;
+    width: 0;
+    height: 0;
+    border-left: 70px solid transparent;
+    border-right: 70px solid transparent;
+    border-bottom: 42px solid #82977D;
+}
+
+.campus-building::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 48px;
+    width: 25px;
+    height: 48px;
+    background: #82977D;
+    border: 3px solid white;
+    border-bottom: none;
+}
+
+.welcome-footer {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+/* =========================================
+   12. SIGNUP AND LOGIN FORM SECTION
+========================================= */
+
+.signup-section {
+    padding: 55px 10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+}
+
+.signup-container {
+    width: 100%;
+    max-width: 480px;
+}
+
+.form-heading {
+    margin-bottom: 32px;
+}
+
+.form-heading h2 {
+    color: var(--dark-green);
+    font-family: 'Playfair Display', serif;
+    font-size: 35px;
+    line-height: 1.3;
+}
+
+.form-heading p {
+    color: var(--muted);
+    font-size: 13px;
+    margin-top: 10px;
+}
+
+/* =========================================
+   13. FORM FIELDS
+========================================= */
+
+.signup-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+}
+
+.form-group label {
+    color: var(--text);
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    min-height: 49px;
+    border: 1px solid var(--border);
+    background: #FCFCFA;
+    border-radius: 8px;
+    padding: 12px 15px;
+    outline: none;
+    font-size: 13px;
+    color: var(--text);
+    transition: 0.3s;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: #A5AAA2;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: var(--sage);
+    background: white;
+    box-shadow: 0 0 0 3px rgba(168,185,160,0.15);
+}
+
+.form-row {
+    display: flex;
+    gap: 15px;
+}
+
+.form-row .form-group {
+    flex: 1;
+    min-width: 0;
+}
+
+/* =========================================
+   14. FORM BUTTONS AND LINKS
+========================================= */
+
+.signup-button {
+    width: 100%;
+    min-height: 50px;
+    border: none;
+    border-radius: 8px;
+    background: var(--deep-sage);
+    color: white;
+    font-size: 14px;
+    font-weight: 700;
+    margin-top: 8px;
+    transition: 0.3s;
+}
+
+.signup-button:hover {
+    background: var(--dark-green);
+    transform: translateY(-2px);
+}
+
+.login-text {
+    text-align: center;
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 25px;
+}
+
+.login-text a {
+    color: var(--deep-sage);
+    font-weight: 800;
+}
+
+.login-text a:hover {
+    color: var(--dark-green);
+}
+
+.privacy-note {
+    margin-top: 25px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 11px;
+    line-height: 1.7;
+}
+
+/* =========================================
+   15. LOGIN PAGE OPTIONS
+========================================= */
+
+.login-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    font-size: 12px;
+    margin-top: 3px;
+}
+
+.remember-me {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    color: var(--muted);
+}
+
+.remember-me input {
+    accent-color: var(--deep-sage);
+}
+
+.forgot-link {
+    color: var(--deep-sage);
+    font-weight: 700;
+}
+
+.forgot-link:hover {
+    color: var(--dark-green);
+}
+
+/* =========================================
+   16. DJANGO MESSAGES
+========================================= */
+
+.messages {
+    list-style: none;
+    margin-bottom: 18px;
+}
+
+.messages li {
+    padding: 12px 15px;
+    border-radius: 8px;
+    background: var(--sage-light);
+    color: var(--deep-sage);
+    font-size: 13px;
+    margin-bottom: 8px;
+}
+
+/* =========================================
+   17. RESPONSIVE DESIGN - TABLETS
+========================================= */
+
+@media (max-width: 1000px) {
+
+    .landing-nav {
+        padding: 20px 6%;
+    }
+
+    .landing-hero {
+        padding: 65px 6%;
+        gap: 30px;
+    }
+
+    .hero-left h1 {
+        font-size: 48px;
+    }
+
+    .hero-decoration {
+        width: 300px;
+        height: 300px;
+    }
+
+    .landing-features {
+        padding: 75px 6%;
+    }
+
+    .feature-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .page-wrapper {
+        grid-template-columns: 0.85fr 1.15fr;
+    }
+
+    .welcome-section {
+        padding: 40px 7%;
+    }
+
+    .signup-section {
+        padding: 45px 7%;
+    }
+}
+
+/* =========================================
+   18. RESPONSIVE DESIGN - SMALL TABLETS
+========================================= */
+
+@media (max-width: 768px) {
+
+    .landing-nav {
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+    .landing-nav-links {
+        gap: 20px;
+    }
+
+    .landing-hero {
+        grid-template-columns: 1fr;
+        padding: 60px 7%;
+        text-align: center;
+    }
+
+    .hero-left {
+        margin: auto;
+    }
+
+    .hero-description {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .hero-buttons {
+        justify-content: center;
+    }
+
+    .hero-right {
+        min-height: 400px;
+    }
+
+    .feature-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .landing-cta {
+        margin: 0 6% 65px;
+        padding: 60px 25px;
+    }
+
+    .page-wrapper {
+        grid-template-columns: 1fr;
+    }
+
+    .welcome-section {
+        min-height: auto;
+        padding: 35px 8%;
+    }
+
+    .welcome-content {
+        margin: 45px 0 20px;
+    }
+
+    .welcome-content h1 {
+        font-size: 42px;
+    }
+
+    .campus-illustration {
+        min-height: 200px;
+    }
+
+    .welcome-footer {
+        margin-top: 20px;
+    }
+
+    .signup-section {
+        padding: 55px 8%;
+    }
+
+    .signup-container {
+        max-width: 550px;
+    }
+}
+
+/* =========================================
+   19. RESPONSIVE DESIGN - MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+
+    .landing-nav {
+        padding: 18px 6%;
+    }
+
+    .landing-nav-links {
+        display: none;
+    }
+
+    .landing-nav-actions {
+        gap: 15px;
+    }
+
+    .landing-hero {
+        padding: 50px 6%;
+    }
+
+    .hero-left h1 {
+        font-size: 43px;
+    }
+
+    .hero-description {
+        font-size: 14px;
+    }
+
+    .hero-right {
+        min-height: 350px;
+    }
+
+    .hero-decoration {
+        width: 260px;
+        height: 260px;
+    }
+
+    .hero-visual-card {
+        padding: 17px;
+    }
+
+    .visual-campus {
+        height: 190px;
+    }
+
+    .landing-intro {
+        padding: 40px 6%;
+    }
+
+    .landing-features {
+        padding: 65px 6%;
+    }
+
+    .features-heading h2 {
+        font-size: 35px;
+    }
+
+    .feature-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .feature-card {
+        min-height: 235px;
+    }
+
+    .landing-cta h2 {
+        font-size: 34px;
+    }
+
+    .landing-footer {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+        padding: 30px 6%;
+    }
+
+    .welcome-section {
+        padding: 25px 7%;
+    }
+
+    .welcome-content {
+        margin: 40px 0 15px;
+    }
+
+    .welcome-content h1 {
+        font-size: 38px;
+    }
+
+    .welcome-content > p {
+        font-size: 13px;
+    }
+
+    .campus-illustration,
+    .welcome-footer {
+        display: none;
+    }
+
+    .signup-section {
+        padding: 40px 7%;
+    }
+
+    .signup-container {
+        max-width: 500px;
+    }
+
+    .form-heading h2 {
+        font-size: 30px;
+    }
+}
+
+/* =========================================
+   20. RESPONSIVE DESIGN - SMALL PHONES
+========================================= */
+
+@media (max-width: 420px) {
+
+    .landing-nav .logo {
+        font-size: 20px;
+    }
+
+    .logo-icon {
+        width: 32px;
+        height: 32px;
+    }
+
+    .nav-signup {
+        padding: 11px 13px;
+    }
+
+    .landing-nav-actions {
+        gap: 11px;
+    }
+
+    .hero-left h1 {
+        font-size: 37px;
+    }
+
+    .hero-buttons {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 18px;
+    }
+
+    .hero-right {
+        min-height: 340px;
+    }
+
+    .hero-visual-card {
+        padding: 17px;
+    }
+
+    .floating-note {
+        right: -4px;
+        bottom: 5px;
+    }
+
+    .features-heading h2 {
+        font-size: 35px;
+    }
+
+    .form-row {
+        flex-direction: column;
+    }
+
+    .login-options {
+        font-size: 12px;
+    }
+
+    .signup-section {
+        padding: 35px 6%;
+    }
+
+    .form-heading h2 {
+        font-size: 28px;
+    }
+}
+
+/* REDUCE SPACE BELOW UNIFIND LOGO */
+
+.welcome-section {
+    justify-content: flex-start;
+}
+
+.welcome-content {
+    margin-top: 35px;
+    margin-bottom: 0;
+}
+
+.welcome-footer {
+    margin-top: auto;
+}
+
+/* HOUSE ONLY ILLUSTRATION */
+
+.campus-card {
+    width: 100%;
+    max-width: 360px;
+    height: 230px;
+    min-height: 230px;
+
+    background: #FFFFFF;
+    border-radius: 20px;
+    box-shadow: 0 18px 45px rgba(52, 75, 58, 0.09);
+
+    position: relative;
+    z-index: 2;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+}
+
+/* CENTER HOUSE */
+
+.campus-building {
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none;
+
+    width: 150px;
+    height: 100px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+
+    margin: 0;
+}
+
+/* ROOF */
+
+.building-roof {
+    width: 0;
+    height: 0;
+
+    border-left: 75px solid transparent;
+    border-right: 75px solid transparent;
+    border-bottom: 38px solid #82977D;
+
+    margin: 0;
+}
+
+/* HOUSE BODY */
+
+.building-body {
+    width: 120px;
+    height: 58px;
+
+    background: #D5DDCD;
+    border: 3px solid #82977D;
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 10px;
+}
+
+/* WINDOWS */
+
+.building-columns {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    height: 100%;
+    padding-bottom: 8px;
+}
+
+.building-columns span {
+    width: 9px;
+    height: 25px;
+    background: #82977D;
+}
+
+/* DOOR */
+
+.building-door {
+    width: 19px;
+    height: 34px;
+    background: #82977D;
+    border: 2px solid white;
+    border-bottom: none;
+}
+
+/* BACKGROUND CIRCLES */
+
+.illustration-circle {
+    position: absolute;
+    border-radius: 50%;
+    z-index: 0;
+}
+
+.circle-one {
+    width: 250px;
+    height: 250px;
+    background: #E8EEE4;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.circle-two {
+    width: 180px;
+    height: 180px;
+    background: #EDF1E9;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
