@@ -1,4 +1,3 @@
-
 import os
 from pathlib import Path
 
@@ -9,6 +8,12 @@ SECRET_KEY = os.environ["DJANGO_SECRET_KEY"]
 DEBUG = True
 ALLOWED_HOSTS = []
 
+# Login settings
+# Keep these for now; authentication integration will be verified separately.
+# LOGIN_URL = '/admin/login/'
+# LOGIN_REDIRECT_URL = '/admin-dashboard/'
+# LOGOUT_REDIRECT_URL = '/admin/login/'
+
 # Applications
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -18,11 +23,9 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
 
-    # Team application
     "claims.apps.ClaimsConfig",
-
-    # Aeman's application
     "accounts",
+    "adminpanel.apps.AdminpanelConfig",
 ]
 
 # Middleware
