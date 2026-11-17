@@ -1,0 +1,249 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UniFind | Your Campus, Connected</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body class="landing-page">
+
+    <!-- NAVIGATION -->
+    <nav class="landing-nav">
+        <a href="/" class="logo">
+            <div class="logo-icon">U</div>
+            <span>UniFind<span class="logo-dot">.</span></span>
+        </a>
+
+        <div class="landing-nav-links">
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#features">Features</a>
+        </div>
+
+        <div class="landing-nav-actions">
+            <a href="{% url 'login' %}" class="nav-login">Log in</a>
+            <a href="{% url 'signup' %}" class="nav-signup">Get Started <span>↗</span></a>
+        </div>
+    </nav>
+
+
+    <!-- HERO SECTION -->
+    <main>
+
+        <section class="landing-hero" id="home">
+
+            <div class="hero-left">
+
+                <div class="hero-tag">
+                    <span class="hero-tag-dot"></span>
+                    YOUR CAMPUS, CONNECTED
+                </div>
+
+                <h1>
+                    Find your campus.<br>
+                    Find your <span>people.</span><br>
+                    Find what matters.
+                </h1>
+
+                <p class="hero-description">
+                    University life is more than classrooms.
+                    Discover opportunities, connect with your
+                    campus community and make the most of
+                    your university journey — all in one place.
+                </p>
+
+                <div class="hero-buttons">
+                    <a href="{% url 'signup' %}" class="hero-primary-btn">
+                        Join UniFind <span>→</span>
+                    </a>
+
+                    <a href="{% url 'login' %}" class="hero-secondary-btn">
+                        I already have an account
+                    </a>
+                </div>
+
+                <div class="hero-trust">
+                    <span class="trust-icon">✳</span>
+                    <p>Made for students, by students.</p>
+                </div>
+
+            </div>
+
+
+            <!-- HERO VISUAL -->
+            <div class="hero-right">
+
+                <div class="hero-decoration hero-decoration-one"></div>
+                <div class="hero-decoration hero-decoration-two"></div>
+
+                <div class="hero-visual-card">
+
+                    <div class="visual-card-header">
+                        <div>
+                            <span class="visual-small-label">WELCOME TO</span>
+                            <h3>Your campus hub.</h3>
+                        </div>
+                        <div class="visual-logo">U</div>
+                    </div>
+
+                    <div class="visual-campus">
+                        <div class="visual-sun"></div>
+
+                        <div class="visual-building">
+                            <div class="visual-roof"></div>
+
+                            <div class="visual-building-body">
+                                <div class="visual-windows">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                                <div class="visual-door"></div>
+                            </div>
+                        </div>
+
+                        <div class="visual-ground"></div>
+                    </div>
+
+                    <div class="visual-card-footer">
+                        <div>
+                            <strong>Everything starts here.</strong>
+                            <span>Explore your university community</span>
+                        </div>
+                        <span class="visual-arrow">↗</span>
+                    </div>
+
+                </div>
+
+                <div class="floating-note">
+                    <span class="floating-note-icon">✳</span>
+                    <div>
+                        <strong>Discover more</strong>
+                        <small>Make campus life count</small>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- INTRO STRIP -->
+        <section class="landing-intro" id="about">
+            <span class="intro-line"></span>
+            <p>
+                One university community.
+                <strong>Endless possibilities.</strong>
+            </p>
+            <span class="intro-line"></span>
+        </section>
+
+
+        <!-- FEATURES -->
+        <section class="landing-features" id="features">
+
+            <div class="features-heading">
+                <span class="section-eyebrow">WHAT IS UNIFIND?</span>
+
+                <h2>
+                    University life,<br>
+                    <span>made a little easier.</span>
+                </h2>
+
+                <p>
+                    A shared space designed to bring your
+                    university experience closer together.
+                </p>
+            </div>
+
+
+            <div class="feature-grid">
+
+                <article class="feature-card">
+                    <div class="feature-icon">⌘</div>
+                    <span class="feature-number">01</span>
+                    <h3>Connect with your campus</h3>
+                    <p>
+                        Be part of a student community where
+                        you can feel connected to university life.
+                    </p>
+                    <span class="feature-bottom">STUDENT COMMUNITY ↗</span>
+                </article>
+
+
+                <article class="feature-card feature-card-highlight">
+                    <div class="feature-icon">✳</div>
+                    <span class="feature-number">02</span>
+                    <h3>Discover opportunities</h3>
+                    <p>
+                        Explore opportunities that help you
+                        learn, participate and grow beyond
+                        your classroom.
+                    </p>
+                    <span class="feature-bottom">EXPLORE & GROW ↗</span>
+                </article>
+
+
+                <article class="feature-card">
+                    <div class="feature-icon">◎</div>
+                    <span class="feature-number">03</span>
+                    <h3>Stay connected</h3>
+                    <p>
+                        Keep your university community closer
+                        and stay connected throughout
+                        your student journey.
+                    </p>
+                    <span class="feature-bottom">STAY UPDATED ↗</span>
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- CALL TO ACTION -->
+        <section class="landing-cta">
+
+            <div class="cta-decoration"></div>
+
+            <span class="section-eyebrow">YOUR JOURNEY STARTS HERE</span>
+
+            <h2>
+                Make your university<br>
+                experience <span>count.</span>
+            </h2>
+
+            <p>
+                Join your campus community and discover
+                everything UniFind has to offer.
+            </p>
+
+            <a href="{% url 'signup' %}" class="cta-button">
+                Create your account <span>→</span>
+            </a>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+    <footer class="landing-footer">
+
+        <a href="/" class="logo">
+            <div class="logo-icon">U</div>
+            <span>UniFind<span class="logo-dot">.</span></span>
+        </a>
+
+        <p>Made for students, by students.</p>
+
+        <span>© 2026 UniFind. All rights reserved.</span>
+
+    </footer>
+
+</body>
+</html>
