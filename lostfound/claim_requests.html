@@ -1,0 +1,76 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <h2>Claim Requests</h2>
+
+    <h5 class="mt-3">
+        Item: {{ item.item_name }}
+    </h5>
+
+    {% if claims %}
+
+        {% for claim in claims %}
+
+            <div class="card p-3 mb-3">
+
+                <h5>Claim Request #{{ claim.id }}</h5>
+
+                <p>
+                    <strong>Claimant:</strong>
+                    {{ claim.claimant.username }}
+                </p>
+
+                <p>
+                    <strong>Message:</strong>
+                    {{ claim.claim_message }}
+                </p>
+
+                <p>
+                    <strong>Status:</strong>
+                    {{ claim.get_status_display }}
+                </p>
+
+                {% if claim.status == 'PENDING' %}
+
+                    <form method="POST"
+                          action="{% url 'update_claim_status' claim.id %}">
+
+                        {% csrf_token %}
+
+                        <button type="submit"
+                                name="action"
+                                value="approve">
+                            Approve
+                        </button>
+
+                        <button type="submit"
+                                name="action"
+                                value="reject">
+                            Reject
+                        </button>
+
+                    </form>
+
+                {% endif %}
+
+            </div>
+
+        {% endfor %}
+
+    {% else %}
+
+        <p>No claim requests received yet.</p>
+
+    {% endif %}
+
+    <a href="{% url 'item_detail' item.id %}">
+        Back to Item Details
+    </a>
+
+</div>
+
+{% endblock %}

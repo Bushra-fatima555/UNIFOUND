@@ -1,0 +1,200 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Item Details | Uni-Find</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7f8;
+            padding: 40px 20px;
+            color: #263238;
+        }
+
+        .detail-container {
+            max-width: 650px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+        }
+
+        h1 {
+            color: #174A5B;
+            text-align: center;
+        }
+
+        img {
+            width: 100%;
+            max-height: 350px;
+            object-fit: contain;
+            margin: 20px 0;
+        }
+
+        p {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            color: #174A5B;
+        }
+
+        .confirmation-section {
+            margin-top: 25px;
+            padding: 20px;
+            background: #f4f7f8;
+            border-radius: 10px;
+        }
+
+        button {
+            background: #174A5B;
+            color: white;
+            border: none;
+            padding: 12px 18px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #23677a;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="detail-container">
+
+        <h1>Item Details</h1>
+
+        {% if item.image %}
+            <img src="{{ item.image.url }}" alt="{{ item.item_name }}">
+        {% endif %}
+
+        <h2>{{ item.item_name }}</h2>
+
+        <p><strong>Type:</strong> {{ item.get_item_type_display }}</p>
+
+        <p><strong>Category:</strong> {{ item.category }}</p>
+
+        <p><strong>Description:</strong> {{ item.description }}</p>
+
+        <p><strong>Date:</strong> {{ item.date }}</p>
+
+        <p><strong>Location:</strong> {{ item.location }}</p>
+
+        <p><strong>Status:</strong> {{ item.get_status_display }}</p>
+
+        <p><strong>Reported On:</strong> {{ item.created_at }}</p>
+<!-- EDIT ITEM BUTTON -->
+{% if item.user == user and item.status != 'RETURNED' %}
+
+    <a href="{% url 'edit_item' item.id %}">
+        Edit Item
+    </a>
+<!-- DELETE ITEM BUTTON -->
+{% if item.user == user %}
+
+    <a href="{% url 'delete_item' item.id %}"
+       style="color: red;">
+        Delete Item
+    </a>
+
+{% endif %}
+{% endif %}
+
+        <!-- CLAIM REQUEST BUTTON -->
+        {% if item.item_type == 'FOUND' and item.user != user and item.status == 'ACTIVE' %}
+
+            <a href="{% url 'submit_claim' item.id %}">
+                Submit Claim Request
+            </a>
+
+        {% endif %}
+
+
+        <!-- OWNER CLAIM REQUESTS -->
+        {% if item.user == user %}
+
+            <a href="{% url 'claim_requests' item.id %}">
+                View Claim Requests
+            </a>
+
+        {% endif %}
+
+
+        <!-- DIGITAL CONFIRMATION -->
+        {% if approved_claim %}
+
+            <div class="confirmation-section">
+
+                <h3>Item Return Confirmation</h3>
+
+                {% if item.status == 'RETURNED' %}
+
+                    <p>Both students have confirmed the item return.</p>
+
+                {% else %}
+
+                    {% if user == approved_claim.claimant %}
+
+                        {% if not approved_claim.claimant_confirmed %}
+
+                            <form method="POST"
+                                  action="{% url 'confirm_return' approved_claim.id %}">
+
+                                {% csrf_token %}
+
+                                <button type="submit">
+                                    Confirm Item Received
+                                </button>
+
+                            </form>
+
+                        {% else %}
+
+                            <p>You have confirmed receiving the item.</p>
+
+                        {% endif %}
+
+                    {% elif user == item.user %}
+
+                        {% if not approved_claim.finder_confirmed %}
+
+                            <form method="POST"
+                                  action="{% url 'confirm_return' approved_claim.id %}">
+
+                                {% csrf_token %}
+
+                                <button type="submit">
+                                    Confirm Item Returned
+                                </button>
+
+                            </form>
+
+                        {% else %}
+
+                            <p>You have confirmed returning the item.</p>
+
+                        {% endif %}
+
+                    {% endif %}
+
+                {% endif %}
+
+            </div>
+
+        {% endif %}
+
+        <a href="{% url 'item_list' %}">← Back to All Items</a>
+
+    </div>
+
+</body>
+</html>
