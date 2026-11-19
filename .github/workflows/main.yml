@@ -19,16 +19,27 @@ jobs:
         with:
           python-version: '3.12'
 
+      - name: Locate Django Project
+        id: locate
+        run: |
+          FILE=$(find . -name manage.py -not -path '*/.venv/*' -print -quit)
+
+          if [ -z "$FILE" ]; then
+            echo "manage.py not found in repository"
+            exit 1
+          fi
+
+          DIR=$(dirname "$FILE")
+          echo "project_dir=$DIR" >> "$GITHUB_OUTPUT"
+          echo "Found Django project: $DIR"
+
       - name: Install Dependencies
         run: |
           python -m pip install --upgrade pip
-          if [ -f requirements.txt ]; then
-            pip install -r requirements.txt
-          else
-            pip install Django
-          fi
+          pip install Django
 
       - name: Run Django Check
+        working-directory: ${{ steps.locate.outputs.project_dir }}
         env:
           DJANGO_SECRET_KEY: test-secret-key
         run: python manage.py check
