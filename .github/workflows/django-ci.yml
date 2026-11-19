@@ -1,0 +1,32 @@
+
+name: UNIFOUND Code Check
+
+on:
+  push:
+    branches:
+      - integrate-lost-found
+  workflow_dispatch:
+
+jobs:
+  code-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Project
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install Django
+        run: pip install Django
+
+      - name: Check Python Syntax
+        run: python -m compileall -q .
+
+      - name: Check Django Project
+        env:
+          DJANGO_SECRET_KEY: test-secret-key
+        run: python manage.py check
