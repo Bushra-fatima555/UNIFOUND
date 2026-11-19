@@ -1,13 +1,18 @@
-
 name: UNIFOUND Code Check
 
 on:
   push:
     branches:
-      - integrate-lost-found
+      - main
+
+  pull_request:
+    branches:
+      - main
+
   workflow_dispatch:
 
 jobs:
+
   code-check:
     runs-on: ubuntu-latest
 
@@ -21,7 +26,7 @@ jobs:
           python-version: '3.12'
 
       - name: Install Django
-        run: pip install Django
+        run: pip install Django Pillow
 
       - name: Check Python Syntax
         run: python -m compileall -q .
@@ -30,3 +35,45 @@ jobs:
         env:
           DJANGO_SECRET_KEY: test-secret-key
         run: python manage.py check
+
+  automated-tests:
+    runs-on: ubuntu-latest
+    needs: code-check
+
+    steps:
+      - name: Checkout Project
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install Dependencies
+        run: pip install Django Pillow
+
+      - name: Run Django Tests
+        env:
+          DJANGO_SECRET_KEY: test-secret-key
+        run: python manage.py test
+
+  migration-check:
+    runs-on: ubuntu-latest
+    needs: code-check
+
+    steps:
+      - name: Checkout Project
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install Dependencies
+        run: pip install Django Pillow
+
+      - name: Check Database Migrations
+        env:
+          DJANGO_SECRET_KEY: test-secret-key
+        run: python manage.py makemigrations --check --dry-run
