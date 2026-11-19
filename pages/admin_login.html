@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>UniFind | Login</title>
+    <title>UniFind | Admin Login</title>
 
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
@@ -25,7 +25,7 @@
 
             <div class="welcome-content">
 
-                <span class="eyebrow">✳ STUDENT COMMUNITY</span>
+                <span class="eyebrow">✳ UNIFIND ADMINISTRATION</span>
 
                 <h1>
                     Welcome<br>
@@ -33,37 +33,34 @@
                 </h1>
 
                 <p>
-                    Your campus community is waiting.
-                    Sign in to discover opportunities, connect
-                    with students and stay updated.
+                    Manage your university community,
+                    oversee activities and keep everything
+                    running smoothly with UniFind.
                 </p>
 
                 <div class="campus-illustration">
                     <div class="illustration-circle circle-one"></div>
                     <div class="illustration-circle circle-two"></div>
 
-                    
-<div class="campus-card">
+                    <div class="campus-card">
+                        <div class="campus-building">
 
-    <div class="campus-building">
+                            <div class="building-roof"></div>
 
-        <div class="building-roof"></div>
+                            <div class="building-body">
 
-        <div class="building-body">
+                                <div class="building-columns">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
 
-            <div class="building-columns">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
+                                <div class="building-door"></div>
 
-            <div class="building-door"></div>
+                            </div>
 
-        </div>
-
-    </div>
-
-</div>
+                        </div>
+                    </div>
 
                 </div>
 
@@ -77,34 +74,50 @@
         </section>
 
 
-        <!-- RIGHT LOGIN SECTION -->
+        <!-- RIGHT ADMIN LOGIN SECTION -->
         <section class="signup-section">
 
             <div class="signup-container">
 
                 <div class="form-heading">
 
-                    <span class="form-label">STUDENT LOGIN</span>
+                    <span class="form-label">ADMIN LOGIN</span>
 
-                    <h2>Welcome back!</h2>
+                    <h2>Admin Portal</h2>
 
                     <p>
-                        Enter your details to access your account.
+                        Sign in to manage and oversee your
+                        university community.
                     </p>
 
                 </div>
 
 
-                <form class="signup-form">
+                <form class="signup-form" method="POST">
+
+                    {% csrf_token %}
 
                     <div class="form-group">
-                        <label for="email">University Email</label>
+                        <label for="email">Official Email</label>
 
                         <input
                             type="email"
                             id="email"
                             name="email"
-                            placeholder="Enter your university email"
+                            placeholder="Enter your official email"
+                            required
+                        >
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="admin_id">Admin ID</label>
+
+                        <input
+                            type="text"
+                            id="admin_id"
+                            name="admin_id"
+                            placeholder="Enter your admin ID"
                             required
                         >
                     </div>
@@ -138,21 +151,21 @@
 
 
                     <button type="button" class="signup-button">
-                        Log In <span>→</span>
+                        Admin Log In <span>→</span>
                     </button>
 
                 </form>
 
 
                 <p class="login-text">
-                    Don't have an account?
-                    <a href="{% url 'signup' %}">Create an account</a>
+                    Return to
+                    <a href="/">UniFind Home</a>
                 </p>
 
 
                 <p class="privacy-note">
-                    By logging in, you agree to use UniFind responsibly
-                    as a member of your university community.
+                    This portal is intended for authorized
+                    UniFind administrators only.
                 </p>
 
             </div>

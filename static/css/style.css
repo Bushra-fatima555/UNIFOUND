@@ -1528,3 +1528,151 @@ button { cursor: pointer; }
     .signup-section { padding: 35px 6%; }
     .form-heading h2 { font-size: 28px; }
 }
+
+/* =========================================
+   LOGIN AND SIGNUP DROPDOWNS
+========================================= */
+
+.landing-nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.account-dropdown {
+    position: relative;
+}
+
+.account-dropdown > button {
+    font-family: inherit;
+    cursor: pointer;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    min-width: 180px;
+    padding: 8px;
+    background: #FFFFFF;
+    border: 1px solid #E7E9E1;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(52, 75, 58, 0.12);
+    z-index: 1000;
+}
+
+.account-dropdown:hover .dropdown-menu,
+.account-dropdown:focus-within .dropdown-menu {
+    display: block;
+}
+
+.dropdown-menu a {
+    display: block;
+    padding: 11px 13px;
+    color: #344B3A;
+    text-decoration: none;
+    font-size: 14px;
+    border-radius: 8px;
+    transition: background 0.2s ease;
+}
+
+.dropdown-menu a:hover {
+    background: #F1F4ED;
+    color: #526B57;
+}
+
+@media (max-width: 600px) {
+    .landing-nav-actions {
+        gap: 8px;
+    }
+
+    .dropdown-menu {
+        min-width: 155px;
+    }
+}
+
+/* =========================================
+   LOGIN BUTTON
+========================================= */
+
+.landing-nav-actions .nav-login {
+    background: transparent;
+    color: #526B57;
+    border: 1px solid #A8B9A0;
+    padding: 11px 22px;
+    border-radius: 30px;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.landing-nav-actions .nav-login:hover {
+    background: #526B57;
+    color: #FFFFFF;
+    border-color: #526B57;
+}
+
+.landing-nav-actions .nav-login span {
+    margin-left: 5px;
+    font-size: 12px;
+}
+
+/* =========================================
+   ADMIN LOGIN & SIGNUP PAGES
+   ========================================= */
+
+.form-message {
+    padding: 12px 15px;
+    margin-bottom: 18px;
+    border-radius: 8px;
+    background: #F1F4ED;
+    color: #526B57;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+/* Admin page headings */
+.form-heading .form-label {
+    color: #526B57;
+}
+
+/* Admin buttons */
+.signup-button {
+    background: #526B57;
+    color: #FFFFFF;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.signup-button:hover {
+    background: #344B3A;
+    transform: translateY(-2px);
+}
+
+/* Admin input focus */
+.signup-form input:focus,
+.signup-form select:focus {
+    outline: none;
+    border-color: #8FA68B;
+    box-shadow: 0 0 0 3px rgba(168, 185, 160, 0.18);
+}
+
+/* Responsive admin forms */
+@media (max-width: 768px) {
+    .page-wrapper {
+        flex-direction: column;
+    }
+
+    .welcome-section,
+    .signup-section {
+        width: 100%;
+    }
+
+    .signup-container {
+        width: 100%;
+    }
+}
+

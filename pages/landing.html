@@ -15,7 +15,7 @@
     <!-- NAVIGATION -->
     <nav class="landing-nav">
 
-        <a href="/" class="logo">
+        <a href="#home" class="logo">
             <div class="logo-icon">U</div>
             <span>UniFind<span class="logo-dot">.</span></span>
         </a>
@@ -29,16 +29,38 @@
         </div>
 
         <div class="landing-nav-actions">
-            <a href="{% url 'login' %}" class="nav-login">Log in</a>
-            <a href="{% url 'signup' %}" class="nav-signup">Sign up</a>
+
+            <!-- LOGIN DROPDOWN -->
+            <div class="account-dropdown">
+                <button type="button" class="nav-login">
+                    Log in <span>⌄</span>
+                </button>
+
+                <div class="dropdown-menu">
+                    <a href="{% url 'student_login' %}">Student Login</a>
+                    <a href="{% url 'admin_login' %}">Admin Login</a>
+                </div>
+            </div>
+
+            <!-- SIGNUP DROPDOWN -->
+            <div class="account-dropdown">
+                <button type="button" class="nav-signup">
+                    Get Started <span>↗</span>
+                </button>
+
+                <div class="dropdown-menu">
+                    <a href="{% url 'student_signup' %}">Student Sign Up</a>
+                </div>
+            </div>
+
         </div>
 
     </nav>
 
 
-    <!-- HERO SECTION -->
     <main>
 
+        <!-- HERO SECTION -->
         <section class="landing-hero" id="home">
 
             <div class="hero-left">
@@ -63,11 +85,13 @@
 
                 <div class="hero-buttons">
 
-                    <a href="{% url 'signup' %}" class="hero-primary-btn">
-                        Get Started <span>→</span>
+                    <a href="{% url 'student_signup' %}" class="hero-primary-btn">
+                        Join UniFind <span>→</span>
                     </a>
 
-                   
+                    <a href="{% url 'student_login' %}" class="hero-secondary-btn">
+                        I already have an account
+                    </a>
 
                 </div>
 
@@ -153,64 +177,61 @@
         </section>
 
 
- 
+        <!-- ABOUT SECTION -->
+        <section class="landing-about" id="about">
 
-<!-- ABOUT SECTION -->
-<section class="landing-about" id="about">
+            <span class="section-eyebrow about-eyebrow">
+                ABOUT UNIFIND
+            </span>
 
-    <span class="section-eyebrow about-eyebrow">
-        ABOUT UNIFIND
-    </span>
+            <div class="about-content">
 
-    <div class="about-content">
+                <h2>
+                    Bringing lost items
+                    <span>back to their owners.</span>
+                </h2>
 
-        <h2>
-            Bringing lost items
-            <span>back to their owners.</span>
-        </h2>
+                <p>
+                    UniFind makes it easier for university students
+                    to report lost belongings, find reported items
+                    and reconnect with their owners.
+                </p>
 
-        <p>
-            UniFind makes it easier for university students
-            to report lost belongings, find reported items
-            and reconnect with their owners.
-        </p>
+                <a href="#features" class="about-link">
+                    Explore features <span>→</span>
+                </a>
 
-        <a href="#features" class="about-link">
-            Explore features <span>→</span>
-        </a>
-
-    </div>
-
-    <div class="about-highlights">
-
-        <div class="about-card">
-            <span class="about-card-icon">⌕</span>
-            <div>
-                <h3>Report Lost Items</h3>
-                <p>Share details of missing belongings.</p>
             </div>
-        </div>
 
-        <div class="about-card">
-            <span class="about-card-icon">✳</span>
-            <div>
-                <h3>Report Found Items</h3>
-                <p>Help others find their belongings.</p>
+            <div class="about-highlights">
+
+                <div class="about-card">
+                    <span class="about-card-icon">⌕</span>
+                    <div>
+                        <h3>Report Lost Items</h3>
+                        <p>Share details of missing belongings.</p>
+                    </div>
+                </div>
+
+                <div class="about-card">
+                    <span class="about-card-icon">✳</span>
+                    <div>
+                        <h3>Report Found Items</h3>
+                        <p>Help others find their belongings.</p>
+                    </div>
+                </div>
+
+                <div class="about-card">
+                    <span class="about-card-icon">↗</span>
+                    <div>
+                        <h3>Reconnect</h3>
+                        <p>Make item recovery easier.</p>
+                    </div>
+                </div>
+
             </div>
-        </div>
 
-        <div class="about-card">
-            <span class="about-card-icon">↗</span>
-            <div>
-                <h3>Reconnect</h3>
-                <p>Make item recovery easier.</p>
-            </div>
-        </div>
-
-    </div>
-
-</section>
-
+        </section>
 
 
         <!-- FEATURES SECTION -->
@@ -240,7 +261,6 @@
                 <article class="feature-card">
 
                     <div class="feature-icon">⌕</div>
-
                     <span class="feature-number">01</span>
 
                     <h3>Report Lost Items</h3>
@@ -261,7 +281,6 @@
                 <article class="feature-card feature-card-highlight">
 
                     <div class="feature-icon">✳</div>
-
                     <span class="feature-number">02</span>
 
                     <h3>Report Found Items</h3>
@@ -283,7 +302,6 @@
                 <article class="feature-card">
 
                     <div class="feature-icon">◎</div>
-
                     <span class="feature-number">03</span>
 
                     <h3>Easy Item Recovery</h3>
@@ -324,7 +342,7 @@
                 easier for your university community.
             </p>
 
-            <a href="{% url 'signup' %}" class="cta-button">
+            <a href="{% url 'student_signup' %}" class="cta-button">
                 Create your account <span>→</span>
             </a>
 
@@ -333,96 +351,98 @@
     </main>
 
 
-    
-<!-- FOOTER -->
+    <!-- FOOTER -->
+    <footer class="landing-footer">
 
-<!-- FOOTER -->
-<footer class="landing-footer">
+        <span class="footer-copyright">
+            © 2026 UniFind. All rights reserved.
+        </span>
 
-    <span class="footer-copyright">
-        © 2026 UniFind. All rights reserved.
-    </span>
+        <div class="footer-links">
 
-    <div class="footer-links">
-        <a href="#">Privacy Policy</a>
-        <a href="#">Terms of Service</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
 
-        <a href="mailto:hello@unifind.com" class="footer-email">
-            <i class="fa-regular fa-envelope"></i>
-            hello@unifind.com
-        </a>
-    </div>
+            <a href="mailto:hello@unifind.com" class="footer-email">
+                hello@unifind.com
+            </a>
 
-</footer>
+        </div>
 
-
+    </footer>
 
 
     <!-- NAVIGATION SCRIPT -->
-  <script>
-document.addEventListener("DOMContentLoaded", function () {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
 
-    const navLinks = document.querySelectorAll(
-        ".landing-nav-links a"
-    );
-
-    const sections = document.querySelectorAll(
-        "#home, #about, #features"
-    );
-
-    function setActive(id) {
-        navLinks.forEach(link => {
-            link.classList.toggle(
-                "active",
-                link.getAttribute("href") === "#" + id
+            const navLinks = document.querySelectorAll(
+                ".landing-nav-links a"
             );
-        });
-    }
 
-    // Set active link according to URL on page load
-    if (window.location.hash) {
-        const currentId = window.location.hash.substring(1);
+            const sections = document.querySelectorAll(
+                "#home, #about, #features"
+            );
 
-        if (document.getElementById(currentId)) {
-            setActive(currentId);
-        }
-    } else {
-        setActive("home");
-    }
+            function setActive(id) {
+                navLinks.forEach(link => {
+                    const href = link.getAttribute("href");
 
-    // Update indicator when a navbar link is clicked
-    navLinks.forEach(link => {
-        link.addEventListener("click", function () {
-            const targetId = this.getAttribute("href");
-
-            if (targetId.startsWith("#")) {
-                setActive(targetId.substring(1));
+                    link.classList.toggle(
+                        "active",
+                        href === "#" + id
+                    );
+                });
             }
-        });
-    });
 
-    // Update indicator while scrolling
-    function updateActiveSection() {
-        let currentSection = "home";
+            // Active link on page load
+            if (window.location.hash) {
+                const currentId = window.location.hash.substring(1);
 
-        sections.forEach(section => {
-            const sectionTop = section.getBoundingClientRect().top;
-
-            if (sectionTop <= 180) {
-                currentSection = section.id;
+                if (document.getElementById(currentId)) {
+                    setActive(currentId);
+                }
+            } else {
+                setActive("home");
             }
+
+            // Active link on click
+            navLinks.forEach(link => {
+                link.addEventListener("click", function () {
+
+                    const targetId = this.getAttribute("href");
+
+                    if (targetId.startsWith("#")) {
+                        setActive(targetId.substring(1));
+                    }
+
+                });
+            });
+
+            // Active link while scrolling
+            function updateActiveSection() {
+
+                let currentSection = "home";
+
+                sections.forEach(section => {
+
+                    const sectionTop =
+                        section.getBoundingClientRect().top;
+
+                    if (sectionTop <= 180) {
+                        currentSection = section.id;
+                    }
+
+                });
+
+                setActive(currentSection);
+            }
+
+            window.addEventListener("scroll", updateActiveSection);
+            window.addEventListener("load", updateActiveSection);
+
         });
+    </script>
 
-        setActive(currentSection);
-    }
-
-    window.addEventListener("scroll", updateActiveSection);
-
-    // Correct indicator after browser restores scroll position
-    window.addEventListener("load", updateActiveSection);
-
-});
-
-</script>
 </body>
 </html>

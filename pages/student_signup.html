@@ -16,7 +16,7 @@
     <!-- LEFT BRANDING SECTION -->
     <section class="welcome-section">
 
-        <a href="#" class="logo">
+        <a href="/" class="logo">
             <span class="logo-icon">U</span>
             <span>UniFind<span class="logo-dot">.</span></span>
         </a>
@@ -39,29 +39,21 @@
                 <div class="illustration-circle circle-one"></div>
                 <div class="illustration-circle circle-two"></div>
 
-                
-<div class="campus-card">
+                <div class="campus-card">
+                    <div class="campus-building">
+                        <div class="building-roof"></div>
 
-    <div class="campus-building">
+                        <div class="building-body">
+                            <div class="building-columns">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
 
-        <div class="building-roof"></div>
-
-        <div class="building-body">
-
-            <div class="building-columns">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-
-            <div class="building-door"></div>
-
-        </div>
-
-    </div>
-
-</div>
-
+                            <div class="building-door"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -88,7 +80,17 @@
                 </p>
             </div>
 
-            <form class="signup-form">
+            <form class="signup-form"
+                  method="POST"
+                  action="{% url 'student_signup' %}">
+
+                {% csrf_token %}
+
+                {% if messages %}
+                    {% for message in messages %}
+                        <p class="form-message">{{ message }}</p>
+                    {% endfor %}
+                {% endif %}
 
                 <div class="form-group">
                     <label for="full_name">Full Name</label>
@@ -185,17 +187,17 @@
                     >
                 </div>
 
-                <button type="button" class="signup-button">
+                <button type="submit" class="signup-button">
                     Create Student Account
                     <span>→</span>
                 </button>
 
             </form>
 
-           <p class="login-text">
-    Already have an account?
-    <a href="{% url 'login' %}">Log in</a>
-</p>
+            <p class="login-text">
+                Already have an account?
+                <a href="{% url 'student_login' %}">Log in</a>
+            </p>
 
             <p class="privacy-note">
                 By creating an account, you agree to use UniFind

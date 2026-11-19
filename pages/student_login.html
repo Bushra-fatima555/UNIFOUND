@@ -1,0 +1,159 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>UniFind | Student Login</title>
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+
+    <main class="page-wrapper">
+
+        <!-- LEFT BRANDING SECTION -->
+        <section class="welcome-section">
+
+            <a href="/" class="logo">
+                <div class="logo-icon">U</div>
+                <span>UniFind<span class="logo-dot">.</span></span>
+            </a>
+
+            <div class="welcome-content">
+
+                <span class="eyebrow">✳ STUDENT COMMUNITY</span>
+
+                <h1>
+                    Welcome<br>
+                    <span>back.</span>
+                </h1>
+
+                <p>
+                    Your campus community is waiting.
+                    Sign in to discover opportunities, connect
+                    with students and stay updated.
+                </p>
+
+                <div class="campus-illustration">
+                    <div class="illustration-circle circle-one"></div>
+                    <div class="illustration-circle circle-two"></div>
+
+                    <div class="campus-card">
+                        <div class="campus-building">
+                            <div class="building-roof"></div>
+
+                            <div class="building-body">
+                                <div class="building-columns">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+
+                                <div class="building-door"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="welcome-footer">
+                <span>Made for students, by students.</span>
+                <span>© 2026 UniFind</span>
+            </div>
+
+        </section>
+
+
+        <!-- RIGHT LOGIN SECTION -->
+        <section class="signup-section">
+
+            <div class="signup-container">
+
+                <div class="form-heading">
+
+                    <span class="form-label">STUDENT LOGIN</span>
+
+                    <h2>Welcome back!</h2>
+
+                    <p>
+                        Enter your details to access your account.
+                    </p>
+
+                </div>
+
+                <form class="signup-form" method="POST" action="{% url 'student_login' %}">
+
+                    {% csrf_token %}
+
+                    {% if messages %}
+                        {% for message in messages %}
+                            <p class="form-message">{{ message }}</p>
+                        {% endfor %}
+                    {% endif %}
+
+                    <div class="form-group">
+                        <label for="email">University Email</label>
+
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="Enter your university email"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password</label>
+
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="Enter your password"
+                            required
+                        >
+                    </div>
+
+                    <div class="login-options">
+
+                        <label class="remember-me">
+                            <input type="checkbox" name="remember">
+                            Remember me
+                        </label>
+
+                        <a href="#" class="forgot-link">
+                            Forgot password?
+                        </a>
+
+                    </div>
+
+                    <button type="submit" class="signup-button">
+                        Log In <span>→</span>
+                    </button>
+
+                </form>
+
+                <p class="login-text">
+                    Don't have an account?
+                    <a href="{% url 'student_signup' %}">Create an account</a>
+                </p>
+
+                <p class="privacy-note">
+                    By logging in, you agree to use UniFind responsibly
+                    as a member of your university community.
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</body>
+</html>
