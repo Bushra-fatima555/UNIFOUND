@@ -1,5 +1,5 @@
 
-name: UNIFOUND Django CI
+name: UNIFOUND CI Pipeline
 
 on:
   push:
@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Code
+      - name: Checkout Repository
         uses: actions/checkout@v4
 
       - name: Setup Python
@@ -28,7 +28,7 @@ jobs:
             pip install Django
           fi
 
-      - name: Django System Check
+      - name: Run Django Check
         env:
           DJANGO_SECRET_KEY: test-secret-key
         run: python manage.py check
