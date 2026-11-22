@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <h2>Submit Claim Request</h2>
+
+    <p>
+        You are submitting a claim for:
+        <strong>{{ item.item_name }}</strong>
+    </p>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <div class="mb-3">
+            <label class="form-label">Why does this item belong to you?</label>
+            {{ form.claim_message }}
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+            Submit Claim
+        </button>
+
+        <a href="{% url 'item_detail' item.id %}"
+           class="btn btn-secondary">
+            Cancel
+        </a>
+    </form>
+
+</div>
+
+{% endblock %}

@@ -107,7 +107,18 @@
              Manage Students
             </a>
 
-            <a href="/admin/">
+                        <a href="{% url 'manage_lostfound_reports' %}">
+                Lost & Found Reports
+            </a>
+
+            <a href="{% url 'manage_lostfound_claims' %}">
+                Lost & Found Claims
+            </a>
+
+            <a href="{% url 'manage_feedback' %}">
+                Manage Feedback
+            </a>
+<a href="/admin/">
                 Django Admin
             </a>
 

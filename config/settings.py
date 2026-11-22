@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "claims.apps.ClaimsConfig",
     "adminpanel.apps.AdminpanelConfig",
+    "lostfound.apps.LostfoundConfig",
 ]
 
 # Middleware

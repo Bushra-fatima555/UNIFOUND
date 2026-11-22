@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>UNIFOUND | Lost & Found Claims</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background: #F7F3EA; font-family: Arial, sans-serif; color: #405443; }
+        .sidebar { min-height: 100vh; background: #E5EBDD; padding: 25px 15px; }
+        .sidebar a { display: block; padding: 12px; margin-bottom: 10px; text-decoration: none; color: #526B56; border-radius: 10px; }
+        .sidebar a:hover, .sidebar a.active { background: #A3B18A; color: white; }
+        .main-content { padding: 30px; }
+        .claims-card { background: white; border: 1px solid #E8E1D5; border-radius: 15px; padding: 25px; margin-top: 25px; }
+        .table thead th { background: #E5EBDD; color: #405443; }
+        .table td, .table th { padding: 13px; vertical-align: middle; }
+        .btn-main { background: #71866A; color: white; }
+        .btn-main:hover { background: #526B56; color: white; }
+    </style>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2 sidebar">
+            <h3>UNIFOUND</h3>
+            <a href="{% url 'dashboard' %}">Dashboard</a>
+            <a href="{% url 'manage_students' %}">Manage Students</a>
+            <a href="{% url 'manage_claims' %}">Manage Claims</a>
+            <a href="{% url 'manage_lostfound_reports' %}">Lost & Found Reports</a>
+            <a href="{% url 'manage_lostfound_claims' %}" class="active">Claim Verification</a>
+            <a href="/admin/">Django Admin</a>
+        </div>
+
+        <div class="col-md-10 main-content">
+            <h2 class="fw-bold">Lost & Found Claim Verification</h2>
+            <p class="text-muted">Monitor claim requests submitted by students.</p>
+
+            <div class="claims-card">
+                <h4 class="mb-4">All Lost & Found Claims</h4>
+
+                <form method="GET" class="row g-2 mb-4">
+                    <div class="col-md-6">
+                        <input type="text" name="search" class="form-control"
+                               placeholder="Search item or claimant..."
+                               value="{{ search_query }}">
+                    </div>
+                    <div class="col-md-3">
+                        <select name="status" class="form-select">
+                            <option value="">All Statuses</option>
+                            <option value="PENDING" {% if status_filter == 'PENDING' %}selected{% endif %}>Pending</option>
+                            <option value="APPROVED" {% if status_filter == 'APPROVED' %}selected{% endif %}>Approved</option>
+                            <option value="REJECTED" {% if status_filter == 'REJECTED' %}selected{% endif %}>Rejected</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <button class="btn btn-main w-100" type="submit">Search / Filter</button>
+                    </div>
+                </form>
+
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Item</th>
+                                <th>Claimant</th>
+                                <th>Item Owner</th>
+                                <th>Message</th>
+                                <th>Status</th>
+                                <th>Submitted</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for claim in claims %}
+                            <tr>
+                                <td>{{ claim.item.item_name }}</td>
+                                <td>{{ claim.claimant.username }}</td>
+                                <td>{{ claim.item.user.username }}</td>
+                                <td>{{ claim.claim_message }}</td>
+                                <td>{{ claim.get_status_display }}</td>
+                                <td>{{ claim.created_at|date:"d M Y" }}</td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="6" class="text-center py-4">No claims available.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <a href="{% url 'dashboard' %}" class="btn btn-main">Back to Dashboard</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

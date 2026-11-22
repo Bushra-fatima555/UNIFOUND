@@ -254,7 +254,7 @@
                                     <div class="d-flex gap-2">
 
                                         <form method="POST"
-                                              action="{% url 'update_claim_status' claim.id %}">
+                                              action="{% url 'admin_update_claim_status' claim.id %}">
                                             {% csrf_token %}
                                             <input type="hidden"
                                                    name="status"
@@ -267,7 +267,7 @@
                                         </form>
 
                                         <form method="POST"
-                                              action="{% url 'update_claim_status' claim.id %}">
+                                              action="{% url 'admin_update_claim_status' claim.id %}">
                                             {% csrf_token %}
                                             <input type="hidden"
                                                    name="status"
