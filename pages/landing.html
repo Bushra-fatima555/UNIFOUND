@@ -2,6 +2,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,27 +14,53 @@
 
     <!-- NAVIGATION -->
     <nav class="landing-nav">
-        <a href="/" class="logo">
+
+        <a href="#home" class="logo">
             <div class="logo-icon">U</div>
             <span>UniFind<span class="logo-dot">.</span></span>
         </a>
 
         <div class="landing-nav-links">
-            <a href="#home">Home</a>
+            <a href="#home" class="active">Home</a>
             <a href="#about">About</a>
             <a href="#features">Features</a>
+            <a href="{% url 'item_list' %}?item_type=LOST">Lost Items</a>
+            <a href="{% url 'item_list' %}?item_type=FOUND">Found Items</a>
         </div>
 
         <div class="landing-nav-actions">
-            <a href="{% url 'login' %}" class="nav-login">Log in</a>
-            <a href="{% url 'signup' %}" class="nav-signup">Get Started <span>↗</span></a>
+
+            <!-- LOGIN DROPDOWN -->
+            <div class="account-dropdown">
+                <button type="button" class="nav-login">
+                    Log in <span>⌄</span>
+                </button>
+
+                <div class="dropdown-menu">
+                    <a href="{% url 'login' %}">Student Login</a>
+                    <a href="{% url 'login' %}">Admin Login</a>
+                </div>
+            </div>
+
+            <!-- SIGNUP DROPDOWN -->
+            <div class="account-dropdown">
+                <button type="button" class="nav-signup">
+                    Get Started <span>↗</span>
+                </button>
+
+                <div class="dropdown-menu">
+                    <a href="{% url 'signup' %}">Student Sign Up</a>
+                </div>
+            </div>
+
         </div>
+
     </nav>
 
 
-    <!-- HERO SECTION -->
     <main>
 
+        <!-- HERO SECTION -->
         <section class="landing-hero" id="home">
 
             <div class="hero-left">
@@ -44,19 +71,20 @@
                 </div>
 
                 <h1>
-                    Find your campus.<br>
-                    Find your <span>people.</span><br>
-                    Find what matters.
+                    Lost something?<br>
+                    Found something?<br>
+                    <span>UniFind helps.</span>
                 </h1>
 
                 <p class="hero-description">
-                    University life is more than classrooms.
-                    Discover opportunities, connect with your
-                    campus community and make the most of
-                    your university journey — all in one place.
+                    Lost or found something on campus?
+                    UniFind helps students report missing
+                    belongings, discover found items and
+                    reconnect people with their belongings.
                 </p>
 
                 <div class="hero-buttons">
+
                     <a href="{% url 'signup' %}" class="hero-primary-btn">
                         Join UniFind <span>→</span>
                     </a>
@@ -64,6 +92,7 @@
                     <a href="{% url 'login' %}" class="hero-secondary-btn">
                         I already have an account
                     </a>
+
                 </div>
 
                 <div class="hero-trust">
@@ -83,47 +112,120 @@
                 <div class="hero-visual-card">
 
                     <div class="visual-card-header">
+
                         <div>
                             <span class="visual-small-label">WELCOME TO</span>
                             <h3>Your campus hub.</h3>
                         </div>
+
                         <div class="visual-logo">U</div>
+
                     </div>
 
                     <div class="visual-campus">
+
                         <div class="visual-sun"></div>
 
                         <div class="visual-building">
+
                             <div class="visual-roof"></div>
 
                             <div class="visual-building-body">
+
                                 <div class="visual-windows">
                                     <span></span>
                                     <span></span>
                                     <span></span>
                                 </div>
+
                                 <div class="visual-door"></div>
+
                             </div>
+
                         </div>
 
                         <div class="visual-ground"></div>
+
                     </div>
 
                     <div class="visual-card-footer">
+
                         <div>
                             <strong>Everything starts here.</strong>
-                            <span>Explore your university community</span>
+                            <span>Reconnect with your campus community</span>
                         </div>
+
                         <span class="visual-arrow">↗</span>
+
                     </div>
 
                 </div>
 
                 <div class="floating-note">
+
                     <span class="floating-note-icon">✳</span>
+
                     <div>
-                        <strong>Discover more</strong>
-                        <small>Make campus life count</small>
+                        <strong>Find what matters</strong>
+                        <small>Lost. Found. Reunited.</small>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ABOUT SECTION -->
+        <section class="landing-about" id="about">
+
+            <span class="section-eyebrow about-eyebrow">
+                ABOUT UNIFIND
+            </span>
+
+            <div class="about-content">
+
+                <h2>
+                    Bringing lost items
+                    <span>back to their owners.</span>
+                </h2>
+
+                <p>
+                    UniFind makes it easier for university students
+                    to report lost belongings, find reported items
+                    and reconnect with their owners.
+                </p>
+
+                <a href="#features" class="about-link">
+                    Explore features <span>→</span>
+                </a>
+
+            </div>
+
+            <div class="about-highlights">
+
+                <div class="about-card">
+                    <span class="about-card-icon">⌕</span>
+                    <div>
+                        <h3>Report Lost Items</h3>
+                        <p>Share details of missing belongings.</p>
+                    </div>
+                </div>
+
+                <div class="about-card">
+                    <span class="about-card-icon">✳</span>
+                    <div>
+                        <h3>Report Found Items</h3>
+                        <p>Help others find their belongings.</p>
+                    </div>
+                </div>
+
+                <div class="about-card">
+                    <span class="about-card-icon">↗</span>
+                    <div>
+                        <h3>Reconnect</h3>
+                        <p>Make item recovery easier.</p>
                     </div>
                 </div>
 
@@ -132,72 +234,88 @@
         </section>
 
 
-        <!-- INTRO STRIP -->
-        <section class="landing-intro" id="about">
-            <span class="intro-line"></span>
-            <p>
-                One university community.
-                <strong>Endless possibilities.</strong>
-            </p>
-            <span class="intro-line"></span>
-        </section>
-
-
-        <!-- FEATURES -->
+        <!-- FEATURES SECTION -->
         <section class="landing-features" id="features">
 
             <div class="features-heading">
+
                 <span class="section-eyebrow">WHAT IS UNIFIND?</span>
 
                 <h2>
-                    University life,<br>
+                    Lost and found,<br>
                     <span>made a little easier.</span>
                 </h2>
 
                 <p>
-                    A shared space designed to bring your
-                    university experience closer together.
+                    A simple platform that helps students
+                    report, discover and recover lost belongings
+                    within their university.
                 </p>
+
             </div>
 
 
             <div class="feature-grid">
 
+                <!-- FEATURE 1 -->
                 <article class="feature-card">
-                    <div class="feature-icon">⌘</div>
+
+                    <div class="feature-icon">⌕</div>
                     <span class="feature-number">01</span>
-                    <h3>Connect with your campus</h3>
+
+                    <h3>Report Lost Items</h3>
+
                     <p>
-                        Be part of a student community where
-                        you can feel connected to university life.
+                        Report belongings you've lost on campus
+                        and help others identify and return them.
                     </p>
-                    <span class="feature-bottom">STUDENT COMMUNITY ↗</span>
+
+                    <span class="feature-bottom">
+                        REPORT AN ITEM ↗
+                    </span>
+
                 </article>
 
 
+                <!-- FEATURE 2 -->
                 <article class="feature-card feature-card-highlight">
+
                     <div class="feature-icon">✳</div>
                     <span class="feature-number">02</span>
-                    <h3>Discover opportunities</h3>
+
+                    <h3>Report Found Items</h3>
+
                     <p>
-                        Explore opportunities that help you
-                        learn, participate and grow beyond
-                        your classroom.
+                        Found something on campus?
+                        Share its details so it can reach
+                        its rightful owner.
                     </p>
-                    <span class="feature-bottom">EXPLORE & GROW ↗</span>
+
+                    <span class="feature-bottom">
+                        HELP SOMEONE ↗
+                    </span>
+
                 </article>
 
 
+                <!-- FEATURE 3 -->
                 <article class="feature-card">
+
                     <div class="feature-icon">◎</div>
                     <span class="feature-number">03</span>
-                    <h3>Stay connected</h3>
+
+                    <h3>Easy Item Recovery</h3>
+
                     <p>
-                        Keep your university community closer
-                        and stay connected throughout
-                        your student journey.
+                        Connect through the claim process
+                        and make recovering belongings
+                        easier and more organized.
                     </p>
-                    <span class="feature-bottom">STAY UPDATED ↗</span>
+
+                    <span class="feature-bottom">
+                        RECONNECT & RECOVER ↗
+                    </span>
+
                 </article>
 
             </div>
@@ -210,16 +328,18 @@
 
             <div class="cta-decoration"></div>
 
-            <span class="section-eyebrow">YOUR JOURNEY STARTS HERE</span>
+            <span class="section-eyebrow">
+                YOUR CAMPUS, YOUR COMMUNITY
+            </span>
 
             <h2>
-                Make your university<br>
-                experience <span>count.</span>
+                Lost something?<br>
+                Let's help you <span>find it.</span>
             </h2>
 
             <p>
-                Join your campus community and discover
-                everything UniFind has to offer.
+                Join UniFind and make lost and found
+                easier for your university community.
             </p>
 
             <a href="{% url 'signup' %}" class="cta-button">
@@ -234,16 +354,95 @@
     <!-- FOOTER -->
     <footer class="landing-footer">
 
-        <a href="/" class="logo">
-            <div class="logo-icon">U</div>
-            <span>UniFind<span class="logo-dot">.</span></span>
-        </a>
+        <span class="footer-copyright">
+            © 2026 UniFind. All rights reserved.
+        </span>
 
-        <p>Made for students, by students.</p>
+        <div class="footer-links">
 
-        <span>© 2026 UniFind. All rights reserved.</span>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+
+            <a href="mailto:hello@unifind.com" class="footer-email">
+                hello@unifind.com
+            </a>
+
+        </div>
 
     </footer>
+
+
+    <!-- NAVIGATION SCRIPT -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const navLinks = document.querySelectorAll(
+                ".landing-nav-links a"
+            );
+
+            const sections = document.querySelectorAll(
+                "#home, #about, #features"
+            );
+
+            function setActive(id) {
+                navLinks.forEach(link => {
+                    const href = link.getAttribute("href");
+
+                    link.classList.toggle(
+                        "active",
+                        href === "#" + id
+                    );
+                });
+            }
+
+            // Active link on page load
+            if (window.location.hash) {
+                const currentId = window.location.hash.substring(1);
+
+                if (document.getElementById(currentId)) {
+                    setActive(currentId);
+                }
+            } else {
+                setActive("home");
+            }
+
+            // Active link on click
+            navLinks.forEach(link => {
+                link.addEventListener("click", function () {
+
+                    const targetId = this.getAttribute("href");
+
+                    if (targetId.startsWith("#")) {
+                        setActive(targetId.substring(1));
+                    }
+
+                });
+            });
+
+            // Active link while scrolling
+            function updateActiveSection() {
+
+                let currentSection = "home";
+
+                sections.forEach(section => {
+
+                    const sectionTop =
+                        section.getBoundingClientRect().top;
+
+                    if (sectionTop <= 180) {
+                        currentSection = section.id;
+                    }
+
+                });
+
+                setActive(currentSection);
+            }
+
+            window.addEventListener("scroll", updateActiveSection);
+            window.addEventListener("load", updateActiveSection);
+
+        });
+    </script>
 
 </body>
 </html>

@@ -1,9 +1,9 @@
 
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-
+from django.core.paginator import Paginator
 from .models import Item, Claim
-from .forms import ItemForm,ClaimForm
+from .forms import ItemForm, ClaimForm
 
 
 # Create Lost or Found Item
@@ -15,7 +15,12 @@ def create_item(request):
 
         if form.is_valid():
             item = form.save(commit=False)
-            item.user = request.user
+
+            if request.user.is_authenticated:
+                item.user = request.user
+            else:
+                item.user = None
+
             item.save()
 
             return redirect('item_list')
@@ -31,29 +36,30 @@ def create_item(request):
 
 
 # Display Lost and Found Items Separately
-
 @login_required
 def item_list(request):
 
     items = Item.objects.all().order_by('-created_at')
 
-    # Search by item name
     search_query = request.GET.get('search', '')
     if search_query:
         items = items.filter(item_name__icontains=search_query)
 
-    # Filter by Lost or Found
     selected_type = request.GET.get('item_type', '')
     if selected_type:
         items = items.filter(item_type=selected_type)
 
-    # Filter by Category
     selected_category = request.GET.get('category', '')
     if selected_category:
         items = items.filter(category=selected_category)
 
+    paginator = Paginator(items, 6)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
     context = {
-        'items': items,
+        'items': page_obj,
+        'page_obj': page_obj,
         'search_query': search_query,
         'selected_type': selected_type,
         'selected_category': selected_category,
@@ -87,25 +93,22 @@ def item_detail(request, id):
         }
     )
 
+
 # Submit Claim Request
 @login_required
 def submit_claim(request, id):
 
     item = get_object_or_404(Item, id=id)
 
-    # Only FOUND items can be claimed
     if item.item_type != 'FOUND':
         return redirect('item_detail', id=item.id)
 
-    # User cannot claim their own item
     if item.user == request.user:
         return redirect('item_detail', id=item.id)
 
-    # Item must be active
     if item.status != 'ACTIVE':
         return redirect('item_detail', id=item.id)
 
-    # Check if user already submitted a claim
     existing_claim = Claim.objects.filter(
         item=item,
         claimant=request.user
@@ -139,14 +142,15 @@ def submit_claim(request, id):
             'item': item
         }
     )
+
+
 # View Claim Requests
 @login_required
 def claim_requests(request, id):
 
     item = get_object_or_404(Item, id=id)
 
-    # Only item owner can view claims
-    if item.user != request.user:
+    if item.user is None or item.user != request.user:
         return redirect('item_detail', id=item.id)
 
     claims = Claim.objects.filter(
@@ -162,15 +166,15 @@ def claim_requests(request, id):
         }
     )
 
-# Approve or Reject Claim Request
 
+# Approve or Reject Claim Request
 @login_required
 def update_claim_status(request, id):
 
     claim = get_object_or_404(Claim, id=id)
     item = claim.item
 
-    if item.user != request.user:
+    if item.user is None or item.user != request.user:
         return redirect('item_detail', id=item.id)
 
     if request.method == 'POST' and claim.status == 'PENDING':
@@ -178,27 +182,36 @@ def update_claim_status(request, id):
         action = request.POST.get('action')
 
         if action == 'approve':
-            claim.status = 'APPROVED'
-            claim.save(update_fields=['status'])
 
-            item.status = 'CLAIM_PENDING'
-            item.save(update_fields=['status'])
+            approved_claim_exists = Claim.objects.filter(
+                item=item,
+                status='APPROVED'
+            ).exclude(id=claim.id).exists()
+
+            if not approved_claim_exists and item.status != 'RETURNED':
+
+                claim.status = 'APPROVED'
+                claim.save(update_fields=['status'])
+
+                item.status = 'CLAIM_PENDING'
+                item.save(update_fields=['status'])
 
         elif action == 'reject':
+
             claim.status = 'REJECTED'
             claim.save(update_fields=['status'])
 
-            # Check if any pending or approved claim remains
             active_claims = Claim.objects.filter(
                 item=item,
                 status__in=['PENDING', 'APPROVED']
             ).exists()
 
-            if not active_claims:
+            if not active_claims and item.status != 'RETURNED':
                 item.status = 'ACTIVE'
                 item.save(update_fields=['status'])
 
     return redirect('claim_requests', id=item.id)
+
 
 # Confirm Item Return
 @login_required
@@ -214,12 +227,10 @@ def confirm_return(request, id):
 
     if request.method == 'POST':
 
-        # Claimant confirmation
         if request.user == claim.claimant:
             claim.claimant_confirmed = True
 
-        # Finder/Item owner confirmation
-        elif request.user == item.user:
+        elif item.user is not None and request.user == item.user:
             claim.finder_confirmed = True
 
         else:
@@ -227,7 +238,6 @@ def confirm_return(request, id):
 
         claim.save()
 
-        # Both students confirmed
         if claim.claimant_confirmed and claim.finder_confirmed:
 
             item.status = 'RETURNED'
@@ -237,17 +247,16 @@ def confirm_return(request, id):
 
     return redirect('item_detail', id=item.id)
 
+
 # Edit Lost or Found Item
 @login_required
 def edit_item(request, id):
 
     item = get_object_or_404(Item, id=id)
 
-    # Only item owner can edit
-    if item.user != request.user:
+    if item.user is None or item.user != request.user:
         return redirect('item_list')
 
-    # Do not edit returned items
     if item.status == 'RETURNED':
         return redirect('item_detail', id=item.id)
 
@@ -275,14 +284,14 @@ def edit_item(request, id):
         }
     )
 
+
 # Delete Lost or Found Item
 @login_required
 def delete_item(request, id):
 
     item = get_object_or_404(Item, id=id)
 
-    # Only item owner can delete
-    if item.user != request.user:
+    if item.user is None or item.user != request.user:
         return redirect('item_list')
 
     if request.method == 'POST':

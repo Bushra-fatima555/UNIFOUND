@@ -4,197 +4,405 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Item Details | Uni-Find</title>
 
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
     <style>
+        :root {
+            --cream: #F8F7F1;
+            --white: #FFFFFF;
+            --sage: #A8B9A0;
+            --sage-light: #EAF0E6;
+            --deep-sage: #526B57;
+            --dark-green: #344B3A;
+            --text: #343C35;
+            --muted: #818980;
+            --border: #E7E9E1;
+            --shadow: 0 15px 40px rgba(52, 75, 58, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            background: #f4f7f8;
-            padding: 40px 20px;
-            color: #263238;
+            font-family: 'DM Sans', sans-serif;
+            background: var(--cream);
+            color: var(--text);
+            padding: 50px 20px;
         }
 
         .detail-container {
-            max-width: 650px;
+            max-width: 850px;
             margin: auto;
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
+            background: var(--white);
+            padding: 40px;
+            border-radius: 18px;
+            box-shadow: var(--shadow);
         }
 
-        h1 {
-            color: #174A5B;
+        .page-heading {
             text-align: center;
+            margin-bottom: 35px;
         }
 
-        img {
+        .page-heading h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 34px;
+            color: var(--dark-green);
+            margin-bottom: 8px;
+        }
+
+        .page-heading p {
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .image-container {
             width: 100%;
-            max-height: 350px;
+            height: 350px;
+            background: var(--sage-light);
+            border-radius: 14px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        .item-image {
+            width: 100%;
+            height: 100%;
             object-fit: contain;
-            margin: 20px 0;
         }
 
-        p {
-            padding: 8px 0;
-            border-bottom: 1px solid #eee;
+        .no-image {
+            color: var(--deep-sage);
+            font-size: 15px;
         }
 
-        a {
+        .item-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            color: var(--dark-green);
+            margin-bottom: 20px;
+        }
+
+        .status-badge {
             display: inline-block;
-            margin-top: 20px;
-            color: #174A5B;
+            background: var(--sage-light);
+            color: var(--deep-sage);
+            padding: 7px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 22px;
+        }
+
+        .details-list {
+            border-top: 1px solid var(--border);
+        }
+
+        .detail-row {
+            display: flex;
+            gap: 12px;
+            padding: 17px 5px;
+            border-bottom: 1px solid var(--border);
+            line-height: 1.6;
+        }
+
+        .detail-row strong {
+            min-width: 125px;
+            color: var(--dark-green);
+            font-weight: 600;
+        }
+
+        .detail-row span {
+            color: var(--text);
+            overflow-wrap: anywhere;
+        }
+
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 28px;
+        }
+
+        .btn {
+            display: inline-block;
+            text-decoration: none;
+            padding: 12px 19px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: 0.2s;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        .btn-primary {
+            background: var(--deep-sage);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--dark-green);
+        }
+
+        .btn-secondary {
+            background: var(--sage-light);
+            color: var(--dark-green);
+        }
+
+        .btn-secondary:hover {
+            background: var(--sage);
+        }
+
+        .btn-danger {
+            background: #FCEDEC;
+            color: #B44848;
+        }
+
+        .btn-danger:hover {
+            background: #F6DAD8;
         }
 
         .confirmation-section {
-            margin-top: 25px;
-            padding: 20px;
-            background: #f4f7f8;
-            border-radius: 10px;
+            margin-top: 30px;
+            padding: 25px;
+            background: var(--sage-light);
+            border-radius: 12px;
         }
 
-        button {
-            background: #174A5B;
-            color: white;
-            border: none;
-            padding: 12px 18px;
-            border-radius: 6px;
-            cursor: pointer;
+        .confirmation-section h3 {
+            color: var(--dark-green);
+            font-family: 'Playfair Display', serif;
+            font-size: 21px;
+            margin-bottom: 15px;
         }
 
-        button:hover {
-            background: #23677a;
+        .confirmation-section p {
+            color: var(--text);
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            color: var(--deep-sage);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .back-link:hover {
+            color: var(--dark-green);
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 20px 12px;
+            }
+
+            .detail-container {
+                padding: 22px 18px;
+            }
+
+            .page-heading h1 {
+                font-size: 28px;
+            }
+
+            .image-container {
+                height: 240px;
+            }
+
+            .detail-row {
+                flex-direction: column;
+                gap: 4px;
+            }
+
+            .detail-row strong {
+                min-width: auto;
+            }
         }
     </style>
 </head>
 
 <body>
 
-    <div class="detail-container">
+<div class="detail-container">
 
+    <div class="page-heading">
         <h1>Item Details</h1>
+        <p>View complete information about this item</p>
+    </div>
 
+    <!-- ITEM IMAGE -->
+    <div class="image-container">
         {% if item.image %}
-            <img src="{{ item.image.url }}" alt="{{ item.item_name }}">
+            <img
+                src="{{ item.image.url }}"
+                alt="{{ item.item_name }}"
+                class="item-image"
+            >
+        {% else %}
+            <div class="no-image">
+                No image available for this item
+            </div>
+        {% endif %}
+    </div>
+
+    <h2 class="item-title">{{ item.item_name }}</h2>
+
+    <span class="status-badge">
+        {{ item.get_status_display }}
+    </span>
+    {% if item.status == 'CLAIM_PENDING' %}
+    <div class="confirmation-section">
+        <h3>Claim Request Pending</h3>
+        <p>
+            A claim request has been submitted for this item.
+            The finder will review the request.
+        </p>
+    </div>
+{% endif %}
+
+    <!-- ITEM INFORMATION -->
+    <div class="details-list">
+
+        <div class="detail-row">
+            <strong>Type</strong>
+            <span>{{ item.get_item_type_display }}</span>
+        </div>
+
+        <div class="detail-row">
+            <strong>Category</strong>
+            <span>{{ item.category }}</span>
+        </div>
+
+        <div class="detail-row">
+            <strong>Description</strong>
+            <span>{{ item.description }}</span>
+        </div>
+
+        <div class="detail-row">
+            <strong>Date</strong>
+            <span>{{ item.date }}</span>
+        </div>
+
+        <div class="detail-row">
+            <strong>Location</strong>
+            <span>{{ item.location }}</span>
+        </div>
+
+        <div class="detail-row">
+            <strong>Reported On</strong>
+            <span>{{ item.created_at }}</span>
+        </div>
+
+    </div>
+
+    <!-- ITEM ACTIONS -->
+    <div class="actions">
+
+        {% if item.user == user and item.status != 'RETURNED' %}
+            <a href="{% url 'edit_item' item.id %}"
+               class="btn btn-primary">
+                Edit Item
+            </a>
+
+            <a href="{% url 'delete_item' item.id %}"
+               class="btn btn-danger">
+                Delete Item
+            </a>
         {% endif %}
 
-        <h2>{{ item.item_name }}</h2>
-
-        <p><strong>Type:</strong> {{ item.get_item_type_display }}</p>
-
-        <p><strong>Category:</strong> {{ item.category }}</p>
-
-        <p><strong>Description:</strong> {{ item.description }}</p>
-
-        <p><strong>Date:</strong> {{ item.date }}</p>
-
-        <p><strong>Location:</strong> {{ item.location }}</p>
-
-        <p><strong>Status:</strong> {{ item.get_status_display }}</p>
-
-        <p><strong>Reported On:</strong> {{ item.created_at }}</p>
-<!-- EDIT ITEM BUTTON -->
-{% if item.user == user and item.status != 'RETURNED' %}
-
-    <a href="{% url 'edit_item' item.id %}">
-        Edit Item
-    </a>
-<!-- DELETE ITEM BUTTON -->
-{% if item.user == user %}
-
-    <a href="{% url 'delete_item' item.id %}"
-       style="color: red;">
-        Delete Item
-    </a>
-
-{% endif %}
-{% endif %}
-
-        <!-- CLAIM REQUEST BUTTON -->
         {% if item.item_type == 'FOUND' and item.user != user and item.status == 'ACTIVE' %}
-
-            <a href="{% url 'submit_claim' item.id %}">
+            <a href="{% url 'submit_claim' item.id %}"
+               class="btn btn-primary">
                 Submit Claim Request
             </a>
-
         {% endif %}
 
-
-        <!-- OWNER CLAIM REQUESTS -->
-        {% if item.user == user %}
-
-            <a href="{% url 'claim_requests' item.id %}">
+        {% if item.user == user and item.user != None %}
+            <a href="{% url 'claim_requests' item.id %}"
+               class="btn btn-secondary">
                 View Claim Requests
             </a>
-
         {% endif %}
 
+    </div>
 
-        <!-- DIGITAL CONFIRMATION -->
-        {% if approved_claim %}
+    <!-- RETURN CONFIRMATION -->
+    {% if approved_claim %}
 
-            <div class="confirmation-section">
+        <div class="confirmation-section">
 
-                <h3>Item Return Confirmation</h3>
+            <h3>Item Return Confirmation</h3>
 
-                {% if item.status == 'RETURNED' %}
+            {% if item.status == 'RETURNED' %}
 
-                    <p>Both students have confirmed the item return.</p>
+                <p>Both students have confirmed the item return.</p>
 
-                {% else %}
+            {% else %}
 
-                    {% if user == approved_claim.claimant %}
+                {% if user == approved_claim.claimant %}
 
-                        {% if not approved_claim.claimant_confirmed %}
+                    {% if not approved_claim.claimant_confirmed %}
 
-                            <form method="POST"
-                                  action="{% url 'confirm_return' approved_claim.id %}">
+                        <form method="POST"
+                              action="{% url 'confirm_return' approved_claim.id %}">
+                            {% csrf_token %}
 
-                                {% csrf_token %}
+                            <button type="submit" class="btn btn-primary">
+                                Confirm Item Received
+                            </button>
+                        </form>
 
-                                <button type="submit">
-                                    Confirm Item Received
-                                </button>
+                    {% else %}
 
-                            </form>
+                        <p>You have confirmed receiving the item.</p>
 
-                        {% else %}
+                    {% endif %}
 
-                            <p>You have confirmed receiving the item.</p>
+                {% elif item.user and user == item.user %}
 
-                        {% endif %}
+                    {% if not approved_claim.finder_confirmed %}
 
-                    {% elif user == item.user %}
+                        <form method="POST"
+                              action="{% url 'confirm_return' approved_claim.id %}">
+                            {% csrf_token %}
 
-                        {% if not approved_claim.finder_confirmed %}
+                            <button type="submit" class="btn btn-primary">
+                                Confirm Item Returned
+                            </button>
+                        </form>
 
-                            <form method="POST"
-                                  action="{% url 'confirm_return' approved_claim.id %}">
+                    {% else %}
 
-                                {% csrf_token %}
-
-                                <button type="submit">
-                                    Confirm Item Returned
-                                </button>
-
-                            </form>
-
-                        {% else %}
-
-                            <p>You have confirmed returning the item.</p>
-
-                        {% endif %}
+                        <p>You have confirmed returning the item.</p>
 
                     {% endif %}
 
                 {% endif %}
 
-            </div>
+            {% endif %}
 
-        {% endif %}
+        </div>
 
-        <a href="{% url 'item_list' %}">← Back to All Items</a>
+    {% endif %}
 
-    </div>
+    <a href="{% url 'item_list' %}" class="back-link">
+        ← Back to All Items
+    </a>
+
+</div>
 
 </body>
 </html>

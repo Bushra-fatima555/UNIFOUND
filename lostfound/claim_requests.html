@@ -3,74 +3,297 @@
 
 {% block content %}
 
-<div class="container mt-5">
+<style>
+    :root {
+        --cream: #F8F7F1;
+        --white: #FFFFFF;
+        --sage: #A8B9A0;
+        --sage-light: #EAF0E6;
+        --deep-sage: #526B57;
+        --dark-green: #344B3A;
+        --text: #343C35;
+        --muted: #818980;
+        --border: #E7E9E1;
+        --shadow: 0 12px 35px rgba(52, 75, 58, 0.07);
+    }
 
-    <h2>Claim Requests</h2>
+    .claims-page {
+        min-height: 80vh;
+        background: var(--cream);
+        padding: 55px 20px;
+        font-family: 'DM Sans', sans-serif;
+    }
 
-    <h5 class="mt-3">
-        Item: {{ item.item_name }}
-    </h5>
+    .claims-container {
+        max-width: 850px;
+        margin: auto;
+    }
 
-    {% if claims %}
+    .claims-heading {
+        text-align: center;
+        margin-bottom: 35px;
+    }
 
-        {% for claim in claims %}
+    .claims-heading h2 {
+        font-family: 'Playfair Display', serif;
+        font-size: 34px;
+        color: var(--dark-green);
+        margin-bottom: 8px;
+    }
 
-            <div class="card p-3 mb-3">
+    .claims-heading p {
+        color: var(--muted);
+        font-size: 14px;
+    }
 
-                <h5>Claim Request #{{ claim.id }}</h5>
+    .item-info {
+        background: var(--sage-light);
+        padding: 18px 22px;
+        border-radius: 12px;
+        margin-bottom: 25px;
+        border-left: 4px solid var(--deep-sage);
+    }
 
-                <p>
-                    <strong>Claimant:</strong>
-                    {{ claim.claimant.username }}
-                </p>
+    .item-info span {
+        color: var(--muted);
+        font-size: 13px;
+    }
 
-                <p>
-                    <strong>Message:</strong>
-                    {{ claim.claim_message }}
-                </p>
+    .item-info h4 {
+        color: var(--dark-green);
+        margin: 5px 0 0;
+        font-size: 18px;
+        font-weight: 700;
+    }
 
-                <p>
-                    <strong>Status:</strong>
-                    {{ claim.get_status_display }}
-                </p>
+    .claim-card {
+        background: var(--white);
+        padding: 25px;
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        box-shadow: var(--shadow);
+        margin-bottom: 20px;
+    }
 
-                {% if claim.status == 'PENDING' %}
+    .claim-card h5 {
+        color: var(--dark-green);
+        font-size: 18px;
+        font-weight: 700;
+        margin-bottom: 18px;
+    }
 
-                    <form method="POST"
-                          action="{% url 'update_claim_status' claim.id %}">
+    .claim-detail {
+        margin-bottom: 15px;
+        line-height: 1.6;
+        color: var(--text);
+        font-size: 14px;
+        overflow-wrap: anywhere;
+    }
 
-                        {% csrf_token %}
+    .claim-detail strong {
+        color: var(--dark-green);
+    }
 
-                        <button type="submit"
-                                name="action"
-                                value="approve">
-                            Approve
-                        </button>
+    .claim-status {
+        display: inline-block;
+        padding: 6px 14px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 700;
+    }
 
-                        <button type="submit"
-                                name="action"
-                                value="reject">
-                            Reject
-                        </button>
+    .status-pending {
+        background: #FFF3D6;
+        color: #956B20;
+    }
 
-                    </form>
+    .status-approved {
+        background: var(--sage-light);
+        color: var(--deep-sage);
+    }
 
-                {% endif %}
+    .status-rejected {
+        background: #FCEDEC;
+        color: #B44848;
+    }
 
+    .claim-actions {
+        display: flex;
+        gap: 12px;
+        margin-top: 22px;
+    }
+
+    .claim-btn {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 8px;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+
+    .approve-btn {
+        background: var(--deep-sage);
+        color: white;
+    }
+
+    .approve-btn:hover {
+        background: var(--dark-green);
+    }
+
+    .reject-btn {
+        background: #FCEDEC;
+        color: #B44848;
+    }
+
+    .reject-btn:hover {
+        background: #F6DAD8;
+    }
+
+    .empty-state {
+        background: white;
+        padding: 40px 20px;
+        border-radius: 14px;
+        text-align: center;
+        color: var(--muted);
+        border: 1px solid var(--border);
+    }
+
+    .back-link {
+        display: inline-block;
+        margin-top: 15px;
+        color: var(--deep-sage);
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 14px;
+    }
+
+    .back-link:hover {
+        color: var(--dark-green);
+    }
+
+    @media (max-width: 576px) {
+        .claims-page {
+            padding: 35px 14px;
+        }
+
+        .claims-heading h2 {
+            font-size: 28px;
+        }
+
+        .claim-card {
+            padding: 20px;
+        }
+
+        .claim-actions {
+            flex-direction: column;
+        }
+
+        .claim-btn {
+            width: 100%;
+        }
+    }
+</style>
+
+<div class="claims-page">
+    <div class="claims-container">
+
+        <div class="claims-heading">
+            <h2>Claim Requests</h2>
+            <p>Review requests submitted for your found item</p>
+        </div>
+
+        <div class="item-info">
+            <span>Claim requests for</span>
+            <h4>{{ item.item_name }}</h4>
+        </div>
+
+        {% if claims %}
+
+            {% for claim in claims %}
+
+                <div class="claim-card">
+
+                    <h5>Claim Request #{{ claim.id }}</h5>
+
+                    <div class="claim-detail">
+                        <strong>Claimant:</strong>
+                        {{ claim.claimant.username }}
+                    </div>
+
+                    <div class="claim-detail">
+                        <strong>Message:</strong>
+                        {{ claim.claim_message }}
+                    </div>
+
+                    <div class="claim-detail">
+                        <strong>Status:</strong>
+
+                        {% if claim.status == 'PENDING' %}
+                            <span class="claim-status status-pending">
+                                {{ claim.get_status_display }}
+                            </span>
+
+                        {% elif claim.status == 'APPROVED' %}
+                            <span class="claim-status status-approved">
+                                {{ claim.get_status_display }}
+                            </span>
+
+                        {% else %}
+                            <span class="claim-status status-rejected">
+                                {{ claim.get_status_display }}
+                            </span>
+                        {% endif %}
+                    </div>
+
+                    {% if claim.status == 'PENDING' %}
+
+                        <form method="POST"
+                              action="{% url 'update_claim_status' claim.id %}">
+
+                            {% csrf_token %}
+
+                            <div class="claim-actions">
+
+                                <button type="submit"
+                                        name="action"
+                                        value="approve"
+                                        class="claim-btn approve-btn">
+                                    Approve Request
+                                </button>
+
+                                <button type="submit"
+                                        name="action"
+                                        value="reject"
+                                        class="claim-btn reject-btn">
+                                    Reject Request
+                                </button>
+
+                            </div>
+
+                        </form>
+
+                    {% endif %}
+
+                </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <div class="empty-state">
+                <h5>No Claim Requests Yet</h5>
+                <p>No students have submitted a claim for this item.</p>
             </div>
 
-        {% endfor %}
+        {% endif %}
 
-    {% else %}
+        <a href="{% url 'item_detail' item.id %}" class="back-link">
+            ← Back to Item Details
+        </a>
 
-        <p>No claim requests received yet.</p>
-
-    {% endif %}
-
-    <a href="{% url 'item_detail' item.id %}">
-        Back to Item Details
-    </a>
-
+    </div>
 </div>
 
 {% endblock %}

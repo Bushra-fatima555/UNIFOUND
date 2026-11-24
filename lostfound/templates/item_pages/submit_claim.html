@@ -1,34 +1,166 @@
+
 {% extends 'base.html' %}
 
 {% block content %}
 
-<div class="container mt-5">
+<style>
+    .claim-page {
+        min-height: 80vh;
+        padding: 65px 20px;
+        background: #f7f9f8;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+    }
 
-    <h2>Submit Claim Request</h2>
+    .claim-card {
+        width: 100%;
+        max-width: 650px;
+        background: #ffffff;
+        padding: 38px;
+        border-radius: 16px;
+        border: 1px solid #e5ece9;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+    }
 
-    <p>
-        You are submitting a claim for:
-        <strong>{{ item.item_name }}</strong>
-    </p>
+    .claim-card h2 {
+        color: #123f3a;
+        font-size: 28px;
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
 
-    <form method="POST">
-        {% csrf_token %}
+    .claim-subtitle {
+        color: #71817c;
+        font-size: 14px;
+        margin-bottom: 28px;
+    }
 
-        <div class="mb-3">
-            <label class="form-label">Why does this item belong to you?</label>
-            {{ form.claim_message }}
+    .item-info {
+        background: #f0f6f3;
+        border-left: 4px solid #1d6658;
+        padding: 16px 18px;
+        border-radius: 8px;
+        margin-bottom: 28px;
+        color: #38554e;
+    }
+
+    .item-info strong {
+        color: #174d42;
+    }
+
+    .claim-card label {
+        display: block;
+        color: #254d44;
+        font-weight: 600;
+        margin-bottom: 10px;
+    }
+
+    .claim-card textarea {
+        width: 100%;
+        min-height: 150px;
+        padding: 14px;
+        border: 1px solid #d7e2dd;
+        border-radius: 9px;
+        resize: vertical;
+        outline: none;
+        font-size: 14px;
+        background: #fcfdfc;
+    }
+
+    .claim-card textarea:focus {
+        border-color: #1d6658;
+        box-shadow: 0 0 0 3px rgba(29, 102, 88, 0.10);
+    }
+
+    .claim-actions {
+        display: flex;
+        gap: 12px;
+        margin-top: 25px;
+    }
+
+    .claim-submit {
+        background: #174d42;
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        border-radius: 8px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: 0.2s;
+    }
+
+    .claim-submit:hover {
+        background: #103b33;
+        color: white;
+    }
+
+    .claim-cancel {
+        background: #edf1ef;
+        color: #38554e;
+        padding: 12px 24px;
+        border-radius: 8px;
+        font-weight: 600;
+        text-decoration: none;
+    }
+
+    .claim-cancel:hover {
+        background: #e0e8e4;
+        color: #254d44;
+    }
+
+    @media (max-width: 576px) {
+        .claim-card {
+            padding: 25px 20px;
+        }
+
+        .claim-actions {
+            flex-direction: column;
+        }
+
+        .claim-actions a,
+        .claim-actions button {
+            text-align: center;
+        }
+    }
+</style>
+
+<div class="claim-page">
+    <div class="claim-card">
+
+        <h2>Submit Claim Request</h2>
+        <p class="claim-subtitle">
+            Provide details to help verify that this item belongs to you.
+        </p>
+
+        <div class="item-info">
+            You are submitting a claim for:
+            <strong>{{ item.item_name }}</strong>
         </div>
 
-        <button type="submit" class="btn btn-primary">
-            Submit Claim
-        </button>
+        <form method="POST">
+            {% csrf_token %}
 
-        <a href="{% url 'item_detail' item.id %}"
-           class="btn btn-secondary">
-            Cancel
-        </a>
-    </form>
+            <div class="mb-3">
+                <label for="{{ form.claim_message.id_for_label }}">
+                    Why does this item belong to you?
+                </label>
+                {{ form.claim_message }}
+            </div>
 
+            <div class="claim-actions">
+                <button type="submit" class="claim-submit">
+                    Submit Claim
+                </button>
+
+                <a href="{% url 'item_detail' item.id %}"
+                   class="claim-cancel">
+                    Cancel
+                </a>
+            </div>
+        </form>
+
+    </div>
 </div>
 
 {% endblock %}
