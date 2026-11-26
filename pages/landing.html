@@ -24,8 +24,7 @@
             <a href="#home" class="active">Home</a>
             <a href="#about">About</a>
             <a href="#features">Features</a>
-            <a href="{% url 'item_list' %}?item_type=LOST">Lost Items</a>
-            <a href="{% url 'item_list' %}?item_type=FOUND">Found Items</a>
+            
         </div>
 
         <div class="landing-nav-actions">
@@ -44,9 +43,9 @@
 
             <!-- SIGNUP DROPDOWN -->
             <div class="account-dropdown">
-                <button type="button" class="nav-signup">
+                <!-- <button type="button" class="nav-signup">
                     Get Started <span>↗</span>
-                </button>
+                </button> -->
 
                 <div class="dropdown-menu">
                     <a href="{% url 'signup' %}">Student Sign Up</a>
@@ -89,9 +88,7 @@
                         Join UniFind <span>→</span>
                     </a>
 
-                    <a href="{% url 'login' %}" class="hero-secondary-btn">
-                        I already have an account
-                    </a>
+                   
 
                 </div>
 
@@ -342,9 +339,7 @@
                 easier for your university community.
             </p>
 
-            <a href="{% url 'signup' %}" class="cta-button">
-                Create your account <span>→</span>
-            </a>
+          
 
         </section>
 
