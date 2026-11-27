@@ -1,34 +1,139 @@
-{% extends 'base.html' %}
 
-{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Claim | UniFind</title>
 
-<div class="container mt-5">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 40px 20px;
+            font-family: Arial, sans-serif;
+            background: #f5f3e9;
+            color: #304b3e;
+        }
+
+        .claim-container {
+            max-width: 650px;
+            margin: 40px auto;
+            padding: 35px;
+            background: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        h2 {
+            color: #315c45;
+            margin-top: 0;
+        }
+
+        .item-name {
+            color: #668b70;
+            font-weight: bold;
+        }
+
+        label {
+            display: block;
+            margin: 25px 0 10px;
+            font-weight: bold;
+        }
+
+        textarea,
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #b8cbb8;
+            border-radius: 8px;
+            font-size: 15px;
+            font-family: Arial, sans-serif;
+        }
+
+        textarea {
+            min-height: 130px;
+            resize: vertical;
+        }
+
+        select {
+            background: #ffffff;
+            color: #304b3e;
+        }
+
+        button, .cancel-btn {
+            display: inline-block;
+            margin-top: 22px;
+            padding: 12px 22px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+        button {
+            background: #527b5d;
+            color: white;
+        }
+
+        .cancel-btn {
+            background: #e8eee5;
+            color: #315c45;
+            margin-left: 8px;
+        }
+
+        button:hover {
+            background: #3e6348;
+        }
+
+        .errorlist {
+            color: #b3261e;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="claim-container">
 
     <h2>Submit Claim Request</h2>
 
     <p>
         You are submitting a claim for:
-        <strong>{{ item.item_name }}</strong>
+        <span class="item-name">{{ item.item_name }}</span>
     </p>
 
     <form method="POST">
         {% csrf_token %}
 
-        <div class="mb-3">
-            <label class="form-label">Why does this item belong to you?</label>
-            {{ form.claim_message }}
-        </div>
+        <label for="{{ form.lost_item.id_for_label }}">
+            Select Your Lost Item
+        </label>
 
-        <button type="submit" class="btn btn-primary">
-            Submit Claim
-        </button>
+        {{ form.lost_item }}
 
-        <a href="{% url 'item_detail' item.id %}"
-           class="btn btn-secondary">
+        {{ form.lost_item.errors }}
+
+        <label for="{{ form.claim_message.id_for_label }}">
+            Why does this item belong to you?
+        </label>
+
+        {{ form.claim_message }}
+
+        {{ form.claim_message.errors }}
+
+        <button type="submit">Submit Claim</button>
+
+        <a href="{% url 'item_detail' item.id %}" class="cancel-btn">
             Cancel
         </a>
     </form>
 
 </div>
 
-{% endblock %}
+</body>
+</html>

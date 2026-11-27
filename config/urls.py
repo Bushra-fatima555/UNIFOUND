@@ -1,7 +1,9 @@
+
 from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
+
     # Django Admin
     path("admin/", admin.site.urls),
 
@@ -13,4 +15,7 @@ urlpatterns = [
 
     # Accounts Module
     path("", include("accounts.urls")),
+
+    # Lost and Found Module
+    path("lostfound/", include("lostfound.urls")),
 ]

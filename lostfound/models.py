@@ -5,13 +5,11 @@ from django.conf import settings
 
 class Item(models.Model):
 
-    # Item Type
     ITEM_TYPES = [
         ('LOST', 'Lost'),
         ('FOUND', 'Found'),
     ]
 
-    # Item Categories
     CATEGORIES = [
         ('Electronics', 'Electronics'),
         ('Books', 'Books'),
@@ -21,11 +19,11 @@ class Item(models.Model):
         ('Other', 'Other'),
     ]
 
-    # Item Status
     STATUS_CHOICES = [
         ('ACTIVE', 'Active'),
         ('CLAIM_PENDING', 'Claim Pending'),
         ('RETURNED', 'Returned'),
+        ('RECEIVED', 'Received'),
         ('CLOSED', 'Closed'),
     ]
 
@@ -71,6 +69,7 @@ class Item(models.Model):
     def __str__(self):
         return f"{self.item_name} - {self.item_type}"
 
+
 class Claim(models.Model):
 
     STATUS_CHOICES = [
@@ -83,6 +82,15 @@ class Claim(models.Model):
         Item,
         on_delete=models.CASCADE,
         related_name='claims'
+    )
+
+    # The claimant's own lost item linked to this found item
+    lost_item = models.ForeignKey(
+        Item,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='matched_claims'
     )
 
     claimant = models.ForeignKey(

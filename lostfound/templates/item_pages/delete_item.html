@@ -1,0 +1,168 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Item | Uni-Find</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5e9;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            color: #34483c;
+        }
+
+        .delete-container {
+            max-width: 480px;
+            width: 100%;
+            background: #ffffff;
+            padding: 45px 35px;
+            border-radius: 18px;
+            text-align: center;
+            box-shadow: 0 8px 30px rgba(52, 72, 60, 0.10);
+            border: 1px solid #e5e9dc;
+        }
+
+        .delete-icon {
+            width: 75px;
+            height: 75px;
+            background: #f8e9e5;
+            color: #b85c50;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 35px;
+            margin: 0 auto 22px;
+        }
+
+        h2 {
+            color: #344e41;
+            font-size: 27px;
+            margin-bottom: 18px;
+        }
+
+        .message {
+            color: #68766b;
+            font-size: 15px;
+            line-height: 1.7;
+            margin-bottom: 12px;
+        }
+
+        .item-name {
+            color: #526b57;
+            font-weight: bold;
+        }
+
+        .warning {
+            color: #b85c50;
+            font-size: 13px;
+            margin: 18px 0 28px;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            background: #b85c50;
+            color: white;
+            padding: 13px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #98483e;
+            transform: translateY(-2px);
+        }
+
+        .cancel-btn {
+            background: #e8eddf;
+            color: #49624e;
+            padding: 13px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .cancel-btn:hover {
+            background: #d8e2d1;
+        }
+
+        @media (max-width: 480px) {
+            .delete-container {
+                padding: 35px 22px;
+            }
+
+            .buttons {
+                flex-direction: column;
+            }
+
+            button, .cancel-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="delete-container">
+
+        <div class="delete-icon">!</div>
+
+        <h2>Delete Item</h2>
+
+        <p class="message">
+            Are you sure you want to delete
+            <span class="item-name">{{ item.item_name }}</span>?
+        </p>
+
+        <p class="warning">
+            This action cannot be undone!
+        </p>
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <div class="buttons">
+
+                <button type="submit">
+                    Yes, Delete
+                </button>
+
+                <a href="{% url 'item_detail' item.id %}"
+                   class="cancel-btn">
+                    Cancel
+                </a>
+
+            </div>
+        </form>
+
+    </div>
+
+</body>
+</html>

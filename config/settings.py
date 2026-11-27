@@ -1,20 +1,40 @@
+
 import os
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Security
-SECRET_KEY = os.environ["DJANGO_SECRET_KEY"]
+
+# --------------------------------------------------
+# SECURITY SETTINGS
+# --------------------------------------------------
+
+SECRET_KEY = os.environ.get(
+    "DJANGO_SECRET_KEY",
+    "django-insecure-unifound-development-key-change-before-production"
+)
+
 DEBUG = True
-ALLOWED_HOSTS = []
 
-# Login settings
-# Keep these for now; authentication integration will be verified separately.
-# LOGIN_URL = '/admin/login/'
-# LOGIN_REDIRECT_URL = '/admin-dashboard/'
-# LOGOUT_REDIRECT_URL = '/admin/login/'
+ALLOWED_HOSTS = [
+    "localhost",
+    "127.0.0.1",
+]
 
-# Applications
+
+# --------------------------------------------------
+# LOGIN SETTINGS
+# --------------------------------------------------
+
+LOGIN_URL = "/login/"
+LOGIN_REDIRECT_URL = "/admin-dashboard/"
+LOGOUT_REDIRECT_URL = "/login/"
+
+
+# --------------------------------------------------
+# APPLICATIONS
+# --------------------------------------------------
+
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -23,12 +43,18 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
 
+    # Project Apps
     "claims.apps.ClaimsConfig",
     "accounts",
     "adminpanel.apps.AdminpanelConfig",
+    "lostfound.apps.LostfoundConfig",
 ]
 
-# Middleware
+
+# --------------------------------------------------
+# MIDDLEWARE
+# --------------------------------------------------
+
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -39,9 +65,14 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
+
 ROOT_URLCONF = "config.urls"
 
-# Templates
+
+# --------------------------------------------------
+# TEMPLATES
+# --------------------------------------------------
+
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
@@ -58,9 +89,14 @@ TEMPLATES = [
     },
 ]
 
+
 WSGI_APPLICATION = "config.wsgi.application"
 
-# Database
+
+# --------------------------------------------------
+# DATABASE
+# --------------------------------------------------
+
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
@@ -68,7 +104,11 @@ DATABASES = {
     }
 }
 
-# Password validation
+
+# --------------------------------------------------
+# PASSWORD VALIDATION
+# --------------------------------------------------
+
 AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
@@ -84,16 +124,33 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-# Internationalization
+
+# --------------------------------------------------
+# INTERNATIONALIZATION
+# --------------------------------------------------
+
 LANGUAGE_CODE = "en-us"
+
 TIME_ZONE = "UTC"
+
 USE_I18N = True
+
 USE_TZ = True
 
-# Static files
+
+# --------------------------------------------------
+# STATIC FILES
+# --------------------------------------------------
+
 STATIC_URL = "static/"
+
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
+
+
+# --------------------------------------------------
+# DEFAULT PRIMARY KEY
+# --------------------------------------------------
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"

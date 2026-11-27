@@ -5,9 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>UniFind | Login</title>
-
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 
@@ -15,7 +13,6 @@
 
     <main class="page-wrapper">
 
-        <!-- LEFT BRANDING SECTION -->
         <section class="welcome-section">
 
             <a href="/" class="logo">
@@ -42,31 +39,23 @@
                     <div class="illustration-circle circle-one"></div>
                     <div class="illustration-circle circle-two"></div>
 
-                    
-<div class="campus-card">
+                    <div class="campus-card">
+                        <div class="campus-building">
+                            <div class="building-roof"></div>
 
-    <div class="campus-building">
+                            <div class="building-body">
+                                <div class="building-columns">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
 
-        <div class="building-roof"></div>
-
-        <div class="building-body">
-
-            <div class="building-columns">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-
-            <div class="building-door"></div>
-
-        </div>
-
-    </div>
-
-</div>
+                                <div class="building-door"></div>
+                            </div>
+                        </div>
+                    </div>
 
                 </div>
-
             </div>
 
             <div class="welcome-footer">
@@ -77,7 +66,6 @@
         </section>
 
 
-        <!-- RIGHT LOGIN SECTION -->
         <section class="signup-section">
 
             <div class="signup-container">
@@ -94,23 +82,37 @@
 
                 </div>
 
+                <form class="signup-form"
+                      method="POST"
+                      action="{% url 'login' %}">
 
-                <form class="signup-form">
+                    {% csrf_token %}
+
+                    {% if messages %}
+                        {% for message in messages %}
+                            <p class="form-message">
+                                {{ message }}
+                            </p>
+                        {% endfor %}
+                    {% endif %}
 
                     <div class="form-group">
-                        <label for="email">University Email</label>
+
+                        <label for="username">Roll Number</label>
 
                         <input
-                            type="email"
-                            id="email"
-                            name="email"
-                            placeholder="Enter your university email"
+                            type="text"
+                            id="username"
+                            name="username"
+                            placeholder="Enter your university roll number"
                             required
                         >
+
                     </div>
 
 
                     <div class="form-group">
+
                         <label for="password">Password</label>
 
                         <input
@@ -120,6 +122,7 @@
                             placeholder="Enter your password"
                             required
                         >
+
                     </div>
 
 
@@ -137,7 +140,7 @@
                     </div>
 
 
-                    <button type="button" class="signup-button">
+                    <button type="submit" class="signup-button">
                         Log In <span>→</span>
                     </button>
 
