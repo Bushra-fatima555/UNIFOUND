@@ -1,3 +1,4 @@
+
 from django import forms
 from .models import Item, Claim
 
@@ -19,33 +20,48 @@ class ItemForm(forms.ModelForm):
 
         widgets = {
             'item_name': forms.TextInput(
-                attrs={'class': 'form-control',
-                       'placeholder': 'Enter item name'}
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': 'Enter item name'
+                }
             ),
 
             'description': forms.Textarea(
-                attrs={'class': 'form-control',
-                       'placeholder': 'Describe your item',
-                       'rows': 4}
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': 'Describe your item',
+                    'rows': 4
+                }
             ),
 
             'date': forms.DateInput(
-                attrs={'type': 'date',
-                       'class': 'form-control'}
+                attrs={
+                    'type': 'date',
+                    'class': 'form-control'
+                }
             ),
 
             'location': forms.TextInput(
-                attrs={'class': 'form-control',
-                       'placeholder': 'Enter location'}
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': 'Enter location'
+                }
             ),
         }
 
 
 class ClaimForm(forms.ModelForm):
 
+    lost_item = forms.ModelChoiceField(
+        queryset=Item.objects.none(),
+        required=True,
+        empty_label="Select your lost item",
+        label="Select your Lost Item"
+    )
+
     class Meta:
         model = Claim
-        fields = ['claim_message']
+        fields = ['lost_item', 'claim_message']
 
         widgets = {
             'claim_message': forms.Textarea(
@@ -56,3 +72,17 @@ class ClaimForm(forms.ModelForm):
                 }
             )
         }
+
+    def __init__(self, *args, user=None, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        if user:
+            self.fields['lost_item'].queryset = Item.objects.filter(
+                user=user,
+                item_type='LOST',
+                status='ACTIVE'
+            ).order_by('-created_at')
+
+        self.fields['lost_item'].widget.attrs.update({
+            'class': 'form-control'
+        })

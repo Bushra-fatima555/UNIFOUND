@@ -1,99 +1,257 @@
 
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Item | Uni-Find</title>
+    <title>Edit Item | UniFind</title>
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f7f8;
-            padding: 40px 20px;
-            color: #263238;
+        .edit-page {
+            min-height: 100vh;
+            padding: 50px 20px;
+            background: var(--cream);
+            font-family: 'DM Sans', sans-serif;
         }
 
         .form-container {
-            max-width: 650px;
+            max-width: 680px;
             margin: auto;
+            padding: 38px;
             background: white;
-            padding: 30px;
-            border-radius: 12px;
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            box-shadow: var(--shadow);
+        }
+
+        .page-logo {
+            display: block;
+            text-align: center;
+            margin-bottom: 25px;
+            color: var(--dark-green);
+            font-size: 23px;
+            font-weight: 800;
+            text-decoration: none;
+        }
+
+        .page-logo span {
+            color: var(--deep-sage);
+        }
+
+        .form-heading {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .form-heading small {
+            color: var(--deep-sage);
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 2px;
         }
 
         h1 {
-            color: #174A5B;
-            text-align: center;
+            color: var(--dark-green);
+            font-family: 'Playfair Display', serif;
+            font-size: 35px;
+            margin-top: 10px;
+        }
+
+        .form-description {
+            color: var(--muted);
+            font-size: 13px;
+            margin-top: 10px;
         }
 
         .form-group {
-            margin-bottom: 18px;
+            margin-bottom: 21px;
         }
 
-        label {
+        .form-group label {
             display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
+            margin-bottom: 9px;
+            color: var(--text);
+            font-size: 13px;
+            font-weight: 700;
         }
 
-        input, select, textarea {
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
             width: 100%;
-            padding: 11px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
+            padding: 13px 14px;
+            border: 1px solid var(--border);
+            border-radius: 9px;
             box-sizing: border-box;
+            background: #FCFCF9;
+            color: var(--text);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 13px;
+            outline: none;
+            transition: 0.3s;
         }
 
-        button {
-            background: #174A5B;
-            color: white;
-            padding: 12px 20px;
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--sage);
+            box-shadow: 0 0 0 3px rgba(168, 185, 160, 0.18);
+        }
+
+        .form-group textarea {
+            min-height: 110px;
+            resize: vertical;
+        }
+
+        .form-group input[type="checkbox"] {
+            width: auto;
+            accent-color: var(--deep-sage);
+        }
+
+        .form-group input[type="file"] {
+            background: var(--sage-light);
+            padding: 12px;
+        }
+
+        .field-errors {
+            color: #B64E49;
+            font-size: 12px;
+            margin-top: 7px;
+        }
+
+        .field-help {
+            color: var(--muted);
+            font-size: 11px;
+            margin-top: 6px;
+        }
+
+        .form-actions {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-top: 28px;
+        }
+
+        .update-button {
+            padding: 13px 23px;
             border: none;
-            border-radius: 6px;
+            border-radius: 9px;
+            background: var(--deep-sage);
+            color: white;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
             cursor: pointer;
+            transition: 0.3s;
         }
 
-        a {
-            color: #174A5B;
-            margin-left: 12px;
+        .update-button:hover {
+            background: var(--dark-green);
+        }
+
+        .cancel-link {
+            color: var(--deep-sage);
+            font-size: 13px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .cancel-link:hover {
+            color: var(--dark-green);
+        }
+
+        @media (max-width: 600px) {
+            .edit-page {
+                padding: 30px 15px;
+            }
+
+            .form-container {
+                padding: 25px 19px;
+            }
+
+            h1 {
+                font-size: 29px;
+            }
+
+            .form-actions {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .update-button {
+                width: 100%;
+            }
+
+            .cancel-link {
+                text-align: center;
+            }
         }
     </style>
 </head>
 
 <body>
 
-<div class="form-container">
+<div class="edit-page">
 
-    <h1>Edit Item</h1>
+    <div class="form-container">
 
-    <form method="POST" enctype="multipart/form-data">
+        <a href="/" class="page-logo">UniFind<span>.</span></a>
 
-        {% csrf_token %}
+        <div class="form-heading">
+            <small>UPDATE YOUR REPORT</small>
+            <h1>Edit Item</h1>
+            <p class="form-description">
+                Update your item information below.
+            </p>
+        </div>
 
-        {% for field in form %}
+        <form method="POST" enctype="multipart/form-data">
 
-            <div class="form-group">
+            {% csrf_token %}
 
-                <label>{{ field.label }}</label>
+            {% for field in form %}
 
-                {{ field }}
+                <div class="form-group">
 
-                {% if field.errors %}
-                    <p>{{ field.errors }}</p>
-                {% endif %}
+                    <label>{{ field.label }}</label>
+
+                    {{ field }}
+
+                    {% if field.errors %}
+                        <div class="field-errors">
+                            {{ field.errors }}
+                        </div>
+                    {% endif %}
+
+                    {% if field.help_text %}
+                        <div class="field-help">
+                            {{ field.help_text }}
+                        </div>
+                    {% endif %}
+
+                </div>
+
+            {% endfor %}
+
+            <div class="form-actions">
+
+                <button type="submit" class="update-button">
+                    Update Item
+                </button>
+
+                <a href="{% url 'item_detail' item.id %}" class="cancel-link">
+                    Cancel
+                </a>
 
             </div>
 
-        {% endfor %}
+        </form>
 
-        <button type="submit">Update Item</button>
-
-        <a href="{% url 'item_detail' item.id %}">
-            Cancel
-        </a>
-
-    </form>
+    </div>
 
 </div>
 

@@ -1,0 +1,155 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claim Requests | UniFind</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 40px 20px;
+            font-family: Arial, sans-serif;
+            background: #f5f3e9;
+            color: #304b3e;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 30px auto;
+        }
+
+        h2 {
+            color: #315c45;
+        }
+
+        .claim-card {
+            background: white;
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.07);
+        }
+
+        .status {
+            color: #527b5d;
+            font-weight: bold;
+        }
+
+        .claim-message {
+            background: #f5f7f0;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        button {
+            padding: 10px 18px;
+            border: none;
+            border-radius: 7px;
+            cursor: pointer;
+            color: white;
+            margin-right: 8px;
+        }
+
+        .approve {
+            background: #527b5d;
+        }
+
+        .reject {
+            background: #b65c52;
+        }
+
+        .back {
+            display: inline-block;
+            margin-top: 20px;
+            color: #315c45;
+            text-decoration: none;
+        }
+
+        .empty {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h2>Claim Requests</h2>
+
+    <h3>Item: {{ item.item_name }}</h3>
+
+    {% for claim in claims %}
+
+        <div class="claim-card">
+
+            <h3>Claim Request #{{ claim.id }}</h3>
+
+            <p>
+                <strong>Student:</strong>
+                {{ claim.claimant.username }}
+            </p>
+
+            <p>
+                <strong>Message:</strong>
+            </p>
+
+            <div class="claim-message">
+                {{ claim.claim_message }}
+            </div>
+
+            <p>
+                <strong>Status:</strong>
+                <span class="status">{{ claim.get_status_display }}</span>
+            </p>
+
+            {% if claim.status == 'PENDING' %}
+
+                <form method="POST"
+                      action="{% url 'update_claim_status' claim.id %}">
+                    {% csrf_token %}
+
+                    <button type="submit"
+                            name="action"
+                            value="approve"
+                            class="approve">
+                        Approve
+                    </button>
+
+                    <button type="submit"
+                            name="action"
+                            value="reject"
+                            class="reject">
+                        Reject
+                    </button>
+                </form>
+
+            {% endif %}
+
+        </div>
+
+    {% empty %}
+
+        <div class="empty">
+            No claim requests have been submitted for this item yet.
+        </div>
+
+    {% endfor %}
+
+    <a href="{% url 'item_detail' item.id %}" class="back">
+        ← Back to Item Details
+    </a>
+
+</div>
+
+</body>
+</html>

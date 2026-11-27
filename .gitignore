@@ -8,3 +8,6 @@ env/
 staticfiles/
 media/
 .DS_Store
+
+# Local screenshots
+items/
