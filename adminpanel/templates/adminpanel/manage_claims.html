@@ -124,7 +124,6 @@
 <div class="container-fluid">
     <div class="row">
 
-        <!-- Sidebar -->
         <div class="col-md-2 sidebar">
 
             <h3>UNIFOUND</h3>
@@ -143,7 +142,6 @@
 
         </div>
 
-        <!-- Main Content -->
         <div class="col-md-10 main-content">
 
             <h2 class="fw-bold">Manage Claims</h2>
@@ -164,44 +162,48 @@
 
                 <h4 class="mb-4">All Submitted Claims</h4>
 
-<form method="GET" class="row g-2 mb-4">
+                <form method="GET" class="row g-2 mb-4">
 
-    <div class="col-md-6">
-        <input type="text"
-               name="search"
-               class="form-control"
-               placeholder="Search claimant or item..."
-               value="{{ search_query }}">
-    </div>
+                    <div class="col-md-6">
+                        <input type="text"
+                               name="search"
+                               class="form-control"
+                               placeholder="Search claimant or item..."
+                               value="{{ search_query }}">
+                    </div>
 
-    <div class="col-md-3">
-        <select name="status" class="form-select">
-            <option value="">All Status</option>
+                    <div class="col-md-3">
 
-            <option value="Pending"
-                {% if status_filter == 'Pending' %}selected{% endif %}>
-                Pending
-            </option>
+                        <select name="status" class="form-select">
 
-            <option value="Approved"
-                {% if status_filter == 'Approved' %}selected{% endif %}>
-                Approved
-            </option>
+                            <option value="">All Status</option>
 
-            <option value="Rejected"
-                {% if status_filter == 'Rejected' %}selected{% endif %}>
-                Rejected
-            </option>
-        </select>
-    </div>
+                            <option value="PENDING"
+                                {% if status_filter == 'PENDING' %}selected{% endif %}>
+                                Pending
+                            </option>
 
-    <div class="col-md-3">
-        <button type="submit" class="btn btn-approve w-100">
-            Search / Filter
-        </button>
-    </div>
+                            <option value="APPROVED"
+                                {% if status_filter == 'APPROVED' %}selected{% endif %}>
+                                Approved
+                            </option>
 
-</form>
+                            <option value="REJECTED"
+                                {% if status_filter == 'REJECTED' %}selected{% endif %}>
+                                Rejected
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="col-md-3">
+                        <button type="submit" class="btn btn-approve w-100">
+                            Search / Filter
+                        </button>
+                    </div>
+
+                </form>
 
                 <div class="table-responsive">
 
@@ -223,60 +225,78 @@
 
                             <tr>
 
-                                <td>{{ claim.claimant_name }}</td>
-
-                                <td>{{ claim.item_name }}</td>
-
-                                <td>{{ claim.claim_message }}</td>
-
                                 <td>
-                                    {% if claim.status == 'Pending' %}
-                                        <span class="badge badge-pending">
-                                            Pending
-                                        </span>
-
-                                    {% elif claim.status == 'Approved' %}
-                                        <span class="badge badge-approved">
-                                            Approved
-                                        </span>
-
+                                    {% if claim.claimant.student_profile %}
+                                        {{ claim.claimant.student_profile.full_name }}
                                     {% else %}
-                                        <span class="badge badge-rejected">
-                                            Rejected
-                                        </span>
+                                        {{ claim.claimant.username }}
                                     {% endif %}
                                 </td>
 
                                 <td>
+                                    {{ claim.item.item_name }}
+                                </td>
 
-                                    {% if claim.status == 'Pending' %}
+                                <td>
+                                    {{ claim.claim_message }}
+                                </td>
+
+                                <td>
+
+                                    {% if claim.status == 'PENDING' %}
+                                        <span class="badge badge-pending">
+                                            Pending
+                                        </span>
+
+                                    {% elif claim.status == 'APPROVED' %}
+                                        <span class="badge badge-approved">
+                                            Approved
+                                        </span>
+
+                                    {% elif claim.status == 'REJECTED' %}
+                                        <span class="badge badge-rejected">
+                                            Rejected
+                                        </span>
+                                    {% endif %}
+
+                                </td>
+
+                                <td>
+
+                                    {% if claim.status == 'PENDING' %}
 
                                     <div class="d-flex gap-2">
 
                                         <form method="POST"
-                                              action="{% url 'update_claim_status' claim.id %}">
+                                              action="{% url 'admin_update_claim_status' claim.id %}">
+
                                             {% csrf_token %}
+
                                             <input type="hidden"
                                                    name="status"
-                                                   value="Approved">
+                                                   value="APPROVED">
 
                                             <button type="submit"
                                                     class="btn btn-sm btn-approve">
                                                 Approve
                                             </button>
+
                                         </form>
 
                                         <form method="POST"
-                                              action="{% url 'update_claim_status' claim.id %}">
+                                              action="{% url 'admin_update_claim_status' claim.id %}">
+
                                             {% csrf_token %}
+
                                             <input type="hidden"
                                                    name="status"
-                                                   value="Rejected">
+                                                   value="REJECTED">
 
                                             <button type="submit"
                                                     class="btn btn-sm btn-reject">
                                                 Reject
                                             </button>
+
                                         </form>
 
                                     </div>

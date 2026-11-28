@@ -11,77 +11,109 @@
           rel="stylesheet">
 
     <style>
-       body {
-    background-color: #F7F3EA;
-    font-family: Arial, sans-serif;
-    color: #405443;
-}
+        body {
+            background-color: #F7F3EA;
+            font-family: Arial, sans-serif;
+            color: #405443;
+        }
 
-.sidebar {
-    min-height: 100vh;
-    background-color: #E5EBDD;
-    color: #405443;
-    padding: 25px 15px;
-}
+        .sidebar {
+            min-height: 100vh;
+            background-color: #E5EBDD;
+            color: #405443;
+            padding: 25px 15px;
+        }
 
-.sidebar a {
-    display: block;
-    color: #526B56;
-    text-decoration: none;
-    padding: 12px;
-    margin-bottom: 10px;
-    border-radius: 10px;
-}
+        .sidebar a {
+            display: block;
+            color: #526B56;
+            text-decoration: none;
+            padding: 12px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+        }
 
-.sidebar a:hover {
-    background-color: #A3B18A;
-    color: white;
-}
+        .sidebar a:hover,
+        .sidebar a.active {
+            background-color: #A3B18A;
+            color: white;
+        }
 
-.main-content {
-    padding: 30px;
-}
+        .logout-form {
+            margin-top: 30px;
+        }
 
-.stat-card {
-    border: 1px solid #E8E1D5;
-    border-radius: 15px;
-    padding: 22px;
-    background-color: #FFFFFF;
-    box-shadow: 0 3px 12px rgba(80, 90, 70, 0.05);
-}
+        .logout-btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            background-color: #9B5148;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
 
-.stat-card h2 {
-    font-size: 30px;
-    font-weight: bold;
-    color: #405443;
-}
+        .logout-btn:hover {
+            background-color: #783B34;
+        }
 
-.stat-card p {
-    color: #858579;
-}
+        .main-content {
+            padding: 30px;
+        }
 
-.dashboard-title {
-    font-weight: bold;
-    color: #405443;
-}
+        .stat-card {
+            border: 1px solid #E8E1D5;
+            border-radius: 15px;
+            padding: 22px;
+            background-color: #FFFFFF;
+            box-shadow: 0 3px 12px rgba(80, 90, 70, 0.05);
+            height: 100%;
+        }
 
-.recent-section {
-    background: #FFFFFF;
-    padding: 22px;
-    border-radius: 15px;
-    border: 1px solid #E8E1D5;
-    margin-top: 25px;
-}
+        .stat-card h2 {
+            font-size: 30px;
+            font-weight: bold;
+            color: #405443;
+        }
 
-.btn-primary {
-    background-color: #71866A;
-    border-color: #71866A;
-}
+        .stat-card p {
+            color: #858579;
+            margin-bottom: 8px;
+        }
 
-.btn-primary:hover {
-    background-color: #526B56;
-    border-color: #526B56;
-}
+        .dashboard-title {
+            font-weight: bold;
+            color: #405443;
+        }
+
+        .recent-section {
+            background: #FFFFFF;
+            padding: 22px;
+            border-radius: 15px;
+            border: 1px solid #E8E1D5;
+            margin-top: 25px;
+        }
+
+        .btn-primary {
+            background-color: #71866A;
+            border-color: #71866A;
+        }
+
+        .btn-primary:hover {
+            background-color: #526B56;
+            border-color: #526B56;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                min-height: auto;
+            }
+
+            .main-content {
+                padding: 20px;
+            }
+        }
     </style>
 </head>
 
@@ -95,17 +127,50 @@
 
             <h3>UNIFOUND</h3>
 
-            <a href="{% url 'dashboard' %}">
+            <hr>
+
+            <!-- Dashboard -->
+            <a href="{% url 'dashboard' %}" class="active">
                 Dashboard
             </a>
 
+            <!-- Student Management -->
+            <a href="{% url 'manage_students' %}">
+                Student Management
+            </a>
+
+            <!-- Report Management -->
+            <a href="{% url 'manage_reports' %}">
+                Report Management
+            </a>
+
+            <!-- Claims Management -->
             <a href="{% url 'manage_claims' %}">
                 Manage Claims
             </a>
 
+            <!-- Feedback Management -->
+            <a href="{% url 'manage_feedback' %}">
+                Feedback Management
+            </a>
+
+            <!-- Django Admin -->
             <a href="/admin/">
                 Django Admin
             </a>
+
+            <!-- Logout Button -->
+            <form method="POST"
+                  action="{% url 'logout' %}"
+                  class="logout-form">
+
+                {% csrf_token %}
+
+                <button type="submit" class="logout-btn">
+                    Logout
+                </button>
+
+            </form>
 
         </div>
 
@@ -127,6 +192,20 @@
                     <div class="card stat-card">
                         <p>Total Students</p>
                         <h2>{{ total_students }}</h2>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card stat-card">
+                        <p>Total Lost Items</p>
+                        <h2>{{ total_lost_items }}</h2>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card stat-card">
+                        <p>Total Found Items</p>
+                        <h2>{{ total_found_items }}</h2>
                     </div>
                 </div>
 
@@ -171,12 +250,13 @@
 
                 <div class="table-responsive">
 
-                    <table class="table table-hover">
+                    <table class="table table-hover align-middle">
 
                         <thead class="table-light">
                             <tr>
                                 <th>Claimant</th>
                                 <th>Item</th>
+                                <th>Claim Message</th>
                                 <th>Status</th>
                                 <th>Date</th>
                             </tr>
@@ -187,16 +267,29 @@
                             {% for claim in recent_claims %}
 
                             <tr>
-                                <td>{{ claim.claimant_name }}</td>
-                                <td>{{ claim.item_name }}</td>
 
                                 <td>
-                                    {% if claim.status == 'Approved' %}
+                                    {% if claim.claimant.student_profile %}
+                                        {{ claim.claimant.student_profile.full_name }}
+                                    {% else %}
+                                        {{ claim.claimant.username }}
+                                    {% endif %}
+                                </td>
+
+                                <td>{{ claim.item.item_name }}</td>
+
+                                <td>
+                                    {{ claim.claim_message|truncatechars:40 }}
+                                </td>
+
+                                <td>
+
+                                    {% if claim.status == 'APPROVED' %}
                                         <span class="badge bg-success">
                                             Approved
                                         </span>
 
-                                    {% elif claim.status == 'Rejected' %}
+                                    {% elif claim.status == 'REJECTED' %}
                                         <span class="badge bg-danger">
                                             Rejected
                                         </span>
@@ -206,17 +299,19 @@
                                             Pending
                                         </span>
                                     {% endif %}
+
                                 </td>
 
                                 <td>
                                     {{ claim.created_at|date:"d M Y" }}
                                 </td>
+
                             </tr>
 
                             {% empty %}
 
                             <tr>
-                                <td colspan="4" class="text-center">
+                                <td colspan="5" class="text-center">
                                     No claims available.
                                 </td>
                             </tr>

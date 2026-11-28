@@ -84,7 +84,6 @@ class Claim(models.Model):
         related_name='claims'
     )
 
-    # The claimant's own lost item linked to this found item
     lost_item = models.ForeignKey(
         Item,
         on_delete=models.SET_NULL,
@@ -115,3 +114,34 @@ class Claim(models.Model):
 
     def __str__(self):
         return f"Claim for {self.item.item_name}"
+
+
+class Feedback(models.Model):
+
+    RATING_CHOICES = [
+        (1, '1 - Poor'),
+        (2, '2 - Fair'),
+        (3, '3 - Good'),
+        (4, '4 - Very Good'),
+        (5, '5 - Excellent'),
+    ]
+
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='feedbacks'
+    )
+
+    subject = models.CharField(max_length=200)
+
+    message = models.TextField()
+
+    rating = models.PositiveSmallIntegerField(
+        choices=RATING_CHOICES,
+        default=5
+    )
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.subject} - {self.user.username}"

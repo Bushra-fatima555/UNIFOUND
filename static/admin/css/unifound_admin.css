@@ -1,0 +1,163 @@
+
+/* UNIFOUND Django Admin Theme */
+
+:root {
+    --primary: #526B57;
+    --secondary: #718875;
+    --accent: #A5B99B;
+    --body-bg: #F6F5ED;
+    --dark-bg: #344B3B;
+}
+
+/* Main background */
+body {
+    background: #F6F5ED !important;
+    color: #35483A !important;
+    font-family: Arial, sans-serif;
+}
+
+/* Header */
+#header {
+    background: #344B3B !important;
+    color: white !important;
+    padding: 15px 25px !important;
+}
+
+#header a:link,
+#header a:visited {
+    color: white !important;
+}
+
+#site-name a {
+    font-size: 23px !important;
+    font-weight: bold !important;
+    letter-spacing: 1px;
+}
+
+/* User tools */
+#user-tools {
+    color: #F6F5ED !important;
+}
+
+/* Breadcrumbs */
+div.breadcrumbs {
+    background: #718875 !important;
+    color: white !important;
+    padding: 12px 25px !important;
+}
+
+div.breadcrumbs a {
+    color: white !important;
+}
+
+/* Main content */
+#content {
+    padding: 25px !important;
+}
+
+.module,
+.inline-group {
+    background: #FFFFFF !important;
+    border: 1px solid #DCE4D8 !important;
+    border-radius: 10px !important;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(52, 75, 59, 0.06);
+}
+
+/* Module headings */
+.module h2,
+.module caption,
+.inline-group h2 {
+    background: #718875 !important;
+    color: white !important;
+    padding: 12px !important;
+}
+
+/* Links */
+a:link,
+a:visited {
+    color: #526B57;
+}
+
+a:hover {
+    color: #344B3B !important;
+}
+
+/* Buttons */
+.button,
+input[type="submit"],
+input[type="button"],
+.submit-row input,
+a.button {
+    background: #526B57 !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 7px !important;
+    padding: 9px 15px !important;
+}
+
+.button:hover,
+input[type="submit"]:hover,
+input[type="button"]:hover,
+.submit-row input:hover {
+    background: #344B3B !important;
+}
+
+/* Delete button */
+.deletelink,
+.submit-row .deletelink {
+    background: #A65D55 !important;
+    color: white !important;
+    border-radius: 7px !important;
+}
+
+/* Tables */
+#result_list {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+#result_list thead th {
+    background: #E6EDE2 !important;
+    color: #344B3B !important;
+}
+
+#result_list tbody tr:nth-child(even) {
+    background: #F6F5ED !important;
+}
+
+/* Form fields */
+input,
+select,
+textarea {
+    border: 1px solid #C9D5C5 !important;
+    border-radius: 6px !important;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: #718875 !important;
+    outline: none !important;
+}
+
+/* Sidebar */
+#nav-sidebar {
+    background: #F0F2E9 !important;
+}
+
+#nav-sidebar .current-model {
+    background: #DCE7D8 !important;
+}
+
+/* Messages */
+ul.messagelist li.success {
+    background: #DCEBDD !important;
+    color: #344B3B !important;
+}
+
+ul.messagelist li.warning {
+    background: #F8EBD0 !important;
+    color: #765B29 !important;
+}

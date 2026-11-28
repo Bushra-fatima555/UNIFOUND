@@ -6,7 +6,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lost & Found | UniFind</title>
-
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
     <style>
@@ -16,6 +15,52 @@
             background: var(--cream);
             color: var(--text);
         }
+
+        .items-topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin: 0 0 30px;
+        }
+
+        .items-logo {
+            color: var(--dark-green);
+            font-size: 23px;
+            font-weight: 800;
+            text-decoration: none;
+        }
+
+        .items-logo span { color: var(--deep-sage); }
+
+        .topbar-actions {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .report-btn, .logout-btn, .feedback-btn {
+            display: inline-block;
+            padding: 13px 22px;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+        }
+
+        .report-btn { background: var(--deep-sage); }
+        .report-btn:hover { background: var(--dark-green); }
+
+        .feedback-btn { background: #526B56; }
+        .feedback-btn:hover { background: var(--dark-green); }
+
+        .logout-btn { background: #9b5148; }
+        .logout-btn:hover { background: #783b34; }
 
         .items-header {
             text-align: center;
@@ -37,47 +82,7 @@
             margin: 12px 0;
         }
 
-        .items-header p {
-            color: var(--muted);
-            font-size: 14px;
-        }
-
-        .items-topbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 15px;
-            flex-wrap: wrap;
-            margin: 30px 0;
-        }
-
-        .items-logo {
-            color: var(--dark-green);
-            font-size: 23px;
-            font-weight: 800;
-            text-decoration: none;
-        }
-
-        .items-logo span {
-            color: var(--deep-sage);
-        }
-
-        .report-btn {
-            display: inline-block;
-            padding: 13px 22px;
-            background: var(--deep-sage);
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            font-size: 13px;
-            font-weight: 700;
-            transition: 0.3s;
-        }
-
-        .report-btn:hover {
-            background: var(--dark-green);
-            transform: translateY(-2px);
-        }
+        .items-header p { color: var(--muted); font-size: 14px; }
 
         .filter-form {
             max-width: 100%;
@@ -93,8 +98,7 @@
             gap: 12px;
         }
 
-        .filter-form input,
-        .filter-form select {
+        .filter-form input, .filter-form select {
             flex: 1;
             min-width: 160px;
             min-height: 46px;
@@ -108,8 +112,7 @@
             outline: none;
         }
 
-        .filter-form input:focus,
-        .filter-form select:focus {
+        .filter-form input:focus, .filter-form select:focus {
             border-color: var(--sage);
             box-shadow: 0 0 0 3px rgba(168,185,160,0.15);
         }
@@ -124,12 +127,9 @@
             font-size: 13px;
             font-weight: 700;
             cursor: pointer;
-            transition: 0.3s;
         }
 
-        .filter-form button:hover {
-            background: var(--dark-green);
-        }
+        .filter-form button:hover { background: var(--dark-green); }
 
         .clear-btn {
             padding: 12px;
@@ -191,9 +191,7 @@
             margin: 12px 0;
         }
 
-        .item-card p strong {
-            color: var(--text);
-        }
+        .item-card p strong { color: var(--text); }
 
         .details-btn {
             display: inline-block;
@@ -204,11 +202,8 @@
             text-decoration: none;
         }
 
-        .details-btn:hover {
-            color: var(--dark-green);
-        }
+        .details-btn:hover { color: var(--dark-green); }
 
-        /* CLAIM BUTTON */
         .claim-btn {
             display: inline-block;
             margin-top: 12px;
@@ -220,13 +215,9 @@
             font-size: 13px;
             font-weight: 700;
             text-decoration: none;
-            transition: 0.3s;
         }
 
-        .claim-btn:hover {
-            background: var(--dark-green);
-            transform: translateY(-2px);
-        }
+        .claim-btn:hover { background: var(--dark-green); }
 
         .empty-message {
             grid-column: 1 / -1;
@@ -239,45 +230,48 @@
         }
 
         @media (max-width: 600px) {
-            .items-page {
-                padding: 35px 6%;
-            }
+            .items-page { padding: 35px 6%; }
+            .items-header h1 { font-size: 34px; }
+            .items-topbar { align-items: stretch; }
+            .topbar-actions { width: 100%; }
 
-            .items-header h1 {
-                font-size: 34px;
-            }
-
-            .items-topbar {
-                align-items: stretch;
-            }
-
-            .report-btn {
+            .report-btn, .logout-btn, .feedback-btn {
                 text-align: center;
+                flex: 1;
             }
 
-            .filter-form {
-                padding: 16px;
-            }
-
-            .filter-form input,
-            .filter-form select,
-            .filter-form button {
-                width: 100%;
-            }
+            .filter-form { padding: 16px; }
+            .filter-form input, .filter-form select,
+            .filter-form button { width: 100%; }
         }
     </style>
 </head>
 
 <body>
-
 <div class="items-page">
 
     <div class="items-topbar">
+
         <a href="/" class="items-logo">UniFind<span>.</span></a>
 
-        <a href="{% url 'create_item' %}" class="report-btn">
-            + Report New Item
-        </a>
+        <div class="topbar-actions">
+
+            <a href="{% url 'create_item' %}" class="report-btn">
+                + Report New Item
+            </a>
+
+            <a href="{% url 'submit_feedback' %}" class="feedback-btn">
+                Feedback
+            </a>
+
+            <form method="POST" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit" class="logout-btn">
+                    Logout
+                </button>
+            </form>
+
+        </div>
     </div>
 
     <header class="items-header">
@@ -288,33 +282,20 @@
 
     <form method="GET" action="{% url 'item_list' %}" class="filter-form">
 
-        <input
-            type="text"
-            name="search"
-            placeholder="Search item name..."
-            value="{{ search_query }}"
-        >
+        <input type="text" name="search"
+               placeholder="Search item name..."
+               value="{{ search_query }}">
 
         <select name="item_type">
             <option value="">All Items</option>
-
-            <option value="LOST"
-                {% if selected_type == 'LOST' %}selected{% endif %}>
-                Lost
-            </option>
-
-            <option value="FOUND"
-                {% if selected_type == 'FOUND' %}selected{% endif %}>
-                Found
-            </option>
+            <option value="LOST" {% if selected_type == 'LOST' %}selected{% endif %}>Lost</option>
+            <option value="FOUND" {% if selected_type == 'FOUND' %}selected{% endif %}>Found</option>
         </select>
 
         <select name="category">
             <option value="">All Categories</option>
-
             {% for value, label in categories %}
-                <option value="{{ value }}"
-                    {% if selected_category == value %}selected{% endif %}>
+                <option value="{{ value }}" {% if selected_category == value %}selected{% endif %}>
                     {{ label }}
                 </option>
             {% endfor %}
@@ -345,9 +326,7 @@
                 </span>
 
                 <p><strong>Category:</strong> {{ item.category }}</p>
-
                 <p><strong>Location:</strong> {{ item.location }}</p>
-
                 <p><strong>Status:</strong> {{ item.get_status_display }}</p>
 
                 <a href="{% url 'item_detail' item.id %}" class="details-btn">
@@ -375,6 +354,5 @@
     </div>
 
 </div>
-
 </body>
 </html>

@@ -3,6 +3,10 @@ from django.contrib import admin
 from .models import Claim
 
 
+Claim._meta.verbose_name = "Basic Claim (Legacy)"
+Claim._meta.verbose_name_plural = "Basic Claims (Legacy)"
+
+
 @admin.action(description="Approve selected claims")
 def approve_claims(modeladmin, request, queryset):
     queryset.update(status='Approved')

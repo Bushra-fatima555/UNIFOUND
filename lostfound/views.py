@@ -2,7 +2,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 
-from .models import Item, Claim
+from .models import Item, Claim, Feedback
 from .forms import ItemForm, ClaimForm
 
 
@@ -114,7 +114,6 @@ def submit_claim(request, id):
 
             lost_item = form.cleaned_data['lost_item']
 
-            # Validate selected Lost Item
             if (
                 lost_item.user != request.user
                 or lost_item.item_type != 'LOST'
@@ -223,7 +222,6 @@ def confirm_return(request, id):
     if request.method != 'POST':
         return redirect('item_detail', id=item.id)
 
-    # Only claimant or finder can confirm
     if request.user == claim.claimant:
 
         claim.claimant_confirmed = True
@@ -237,14 +235,11 @@ def confirm_return(request, id):
 
     claim.save()
 
-    # Both students must confirm
     if claim.claimant_confirmed and claim.finder_confirmed:
 
-        # Update Sara's Found Item
         item.status = 'RETURNED'
         item.save(update_fields=['status'])
 
-        # Update Ayesha's linked Lost Item
         lost_item = claim.lost_item
 
         if (
@@ -267,7 +262,6 @@ def edit_item(request, id):
     if item.user != request.user:
         return redirect('item_list')
 
-    # Do not edit completed items
     if item.status in ['RETURNED', 'RECEIVED']:
         return redirect('item_detail', id=item.id)
 
@@ -313,4 +307,43 @@ def delete_item(request, id):
         request,
         'item_pages/delete_item.html',
         {'item': item}
+    )
+
+
+# Student Feedback Submission
+@login_required
+def submit_feedback(request):
+
+    if request.method == 'POST':
+
+        subject = request.POST.get('subject', '').strip()
+        message = request.POST.get('message', '').strip()
+        rating = request.POST.get('rating', '5')
+
+        if not subject or not message:
+            return render(
+                request,
+                'item_pages/submit_feedback.html',
+                {'error': 'Please fill in all fields.'}
+            )
+
+        if rating not in ['1', '2', '3', '4', '5']:
+            rating = '5'
+
+        Feedback.objects.create(
+            user=request.user,
+            subject=subject,
+            message=message,
+            rating=int(rating)
+        )
+
+        return render(
+            request,
+            'item_pages/submit_feedback.html',
+            {'success': 'Your feedback has been submitted successfully!'}
+        )
+
+    return render(
+        request,
+        'item_pages/submit_feedback.html'
     )
